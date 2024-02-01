@@ -48,9 +48,9 @@ type ChipProps = {
 const Chip: React.FC<ChipProps> = ({ title, icon, mLeft = 0, className = "" }) => {
   return (
     <div
-      className={`flex flex-row justify-around items-center px-5 py-[7px] rounded-full text-sm ${styleClasses}`}
+      className={`flex flex-row justify-around items-center px-5 py-[7px] rounded-full text-sm ${className}`}
     >
-      <div className=`ml-${mLeft}`>{title}</div>
+      <div className={`ml-${mLeft}`}>{title}</div>
       <Image src={icon} width={20} height={20} alt={`${title} coin`} />
       <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path opacity="0.8" d="M4.76314 3L-9.53674e-07 5.75V0.25L4.76314 3Z" fill="#FFFFFF"></path>
