@@ -29,14 +29,14 @@ const NewsCards: React.FC<NewsCardsProps> = () => {
           body="Robert goodman endorses Bitcoin as a defense against wealth theft. He criticizes Powell, Yellow, an... "
         />
       </div>
-      <div className="flex mt-16 text-[16px] font-bold justify-around items-center text-[#2170FF]">
+      <div className="flex mt-16 text-[16px] sm:text-[18px] font-bold justify-around items-center text-[#2170FF]">
         <div className="flex flex-col sm:flex-row justify-center gap-2 items-center">
           <div>More news</div>
           <Image width={16} height={16} alt="More news" src="/forward.svg" />
         </div>
         <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-2">
           <Image height={30} width={30} alt="telegram" src="/telegram-blue.svg" />
-          <div>Subscribe to news on telegram</div>
+          <div>Subscribe to telegram</div>
         </div>
       </div>
     </PaddedWrapper>
