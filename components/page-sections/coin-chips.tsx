@@ -45,7 +45,7 @@ type ChipProps = {
   mLeft?: number;
 };
 
-const Chip: React.FC<ChipProps> = ({ title, icon, mLeft = 0, className: styleClasses = "" }) => {
+const Chip: React.FC<ChipProps> = ({ title, icon, mLeft = 0, className = "" }) => {
   return (
     <div
       className={`flex flex-row justify-around items-center px-5 py-[7px] rounded-full text-sm ${styleClasses}`}
