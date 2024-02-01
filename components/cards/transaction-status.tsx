@@ -18,7 +18,7 @@ const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
               <div className="rounded-full bg-[#21BAF7] text-sm px-2 py-[2px]">segWit</div>
             </div>
           </div>
-          <div className="flex gap-2 justify-center justify-start text-sm">
+          <div className="flex gap-2 justify-start text-sm">
             <span className="font-extralight">Block id</span>
             <span className="text-[#2170FF] font-extrabold">824,689</span>
           </div>
