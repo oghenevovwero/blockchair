@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ThemeAwareQmarkIcon from "./qmark";
 
 type PrivacyControlProps = {};
 
@@ -26,7 +27,7 @@ const PrivacyControl: React.FC<PrivacyControlProps> = () => {
               <div className="flex gap-2 items-center">
                 <div className="bg-[#FF0078] text-white px-2 rounded-full">0</div>
                 <div className="font-[500]">Critical</div>
-                <Image src="/qmark.svg" height={20} width={20} alt="copy" />
+                <ThemeAwareQmarkIcon />
               </div>
               <span className="text-[#FF63AD] mr-1">
                 Issues: <span className="text-black dark:text-gray-500 font-extralight">2</span>
