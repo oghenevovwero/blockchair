@@ -3,16 +3,16 @@ import PaddedWrapper from "../wrappers/padded";
 
 const CoinChips = () => {
   return (
-    <PaddedWrapper className="flex flex-col xl:flex-row text-black justify-between xl:items-center mb-10">
+    <PaddedWrapper className="flex flex-col xl:flex-row text-black dark:text-white justify-between xl:items-center mb-10">
       <div className="flex items-center max-xl:mb-8">
-      <Image className="mr-4" src="/bitcoin.svg" width={60} height={60} alt="Chart" />
+        <Image className="mr-4" src="/bitcoin.svg" width={60} height={60} alt="Chart" />
         <div>
           <div className="opacity-45 font-[400] flex items-center">
             Bitcoin <span className="font-extrabold mb-2 mx-1">.</span> transactions
           </div>
           <div className="flex flex-col min-[352px]:flex-row justify-start">
             <div className="mr-4 text-xl font-bold">Bitcoin transaction</div>
-            <div className="border-[0.5px] w-fit h-fit border-white font-[400] px-2 py-[3px] text-xs rounded-md bg-[#E7EBF5]">
+            <div className="border-[0.5px] w-fit h-fit border-white dark:opacity-45 dark:border-[#262626] dark:bg-[#362d16] font-[300] px-2 py-[3px] text-xs rounded-md bg-[#E7EBF5]">
               API
             </div>
           </div>

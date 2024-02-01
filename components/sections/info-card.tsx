@@ -22,7 +22,7 @@ const InfoCard: React.FC<InfoCardProps> = () => {
         <div className="mb-3">
           <TransactionStatus />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-lg border-white shadow-lg shadow-[#B0BDC7] bg-[#EFF2F9] border p-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-lg dark:border-[#262626] border-white dark:shadow-none shadow-lg shadow-[#B0BDC7] bg-[#EFF2F9] dark:bg-[#0E0E0E] border p-2">
           <Senders />
           <Recipients />
         </div>

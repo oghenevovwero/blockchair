@@ -4,8 +4,8 @@ type TransactionSTatusProps = {};
 
 const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
   return (
-    <div className="flex flex-col rounded-lg text-black border border-white shadow-md shadow-[#B0BDC7]">
-      <div className="flex gap-5 p-5  bg-[#FFFFEE] rounded-t-lg">
+    <div className="flex flex-col rounded-lg text-black border border-white dark:text-white dark:border-[#262626] dark:shadow-none shadow-md shadow-[#B0BDC7]">
+      <div className="flex gap-5 p-5  bg-[#FFFFEE] dark:bg-[#131313] rounded-t-lg">
         <div className="p-7 w-fit h-fit flex items-center justify-center rounded-full  bg-gradient-to-b from-[#57F630] via-[#3BB09A] to-[#257AEF]">
           <Image className="font-extralight" src="/tick.svg" width={20} height={20} alt="Checked" />
         </div>
@@ -24,14 +24,14 @@ const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
           </div>
         </div>
       </div>
-      <div className="flex p-5 justify-between rounded-b-lg bg-[#EFF2F9]">
+      <div className="flex p-2 justify-between rounded-b-lg bg-[#EFF2F9] dark:bg-[#0E0E0E]">
         <div className="flex gap-2 items-center">
           <div className="w-[6px] h-[6px]">
             <svg viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 3.5L8.34742e-08 7L0 7.15493e-08L6 3.5Z" fill="blue"></path>
             </svg>
           </div>
-          <span className="text-xs font-bold sm:text-xl sm:font-normal">Additional info</span>
+          <span className="text-xs font-bold sm:text-[14px] sm:font-normal">Additional info</span>
         </div>
         <div className="flex gap-2 text-xs font-bold sm:text-xl sm:font-normal items-center justify-between">
           <Image src="/pdf.svg" width={25} height={25} alt="Pdf receipt" />

@@ -7,7 +7,7 @@ type NewsCardsProps = {};
 const NewsCards: React.FC<NewsCardsProps> = () => {
   return (
     <PaddedWrapper>
-      <div className="text-2xl mb-11 text-black font-bold">Blockchair Crypto News</div>
+      <div className="text-2xl mb-11 text-black dark:text-white font-bold">Blockchair Crypto News</div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <CryptoNews
           author="en.coin-turk.com"
