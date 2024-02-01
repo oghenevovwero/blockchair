@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ThemeAwareChart from "../chart";
 
 type BtcPriceProps = {};
 
@@ -15,7 +16,9 @@ const BtcPrice: React.FC<BtcPriceProps> = () => {
       </div>
       <span className="flex justify-start mb-3 font-[400] text-sm text-[#7691A5]">Last month</span>
       <div>
-        <Image className="mb-3" src="/chart.png" width={700} height={150} alt="Chart" />
+        <div className="mb-3">
+          <ThemeAwareChart />
+        </div>
         <span className="font-[200] text-sm text-[#7691A5]">Recommended transaction fee</span>
         <div className="mb-6 text-sm">26 satoshi per byte</div>
         <div className="flex gap-2 items-center">
