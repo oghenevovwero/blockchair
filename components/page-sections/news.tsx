@@ -30,7 +30,7 @@ const NewsCards: React.FC<NewsCardsProps> = () => {
         />
       </div>
       <div className="flex mt-16 text-xl font-bold justify-between items-center text-[#2170FF]">
-        <div className="flex flex-col sm:flex-row gap-1 items-center">
+        <div className="flex flex-col sm:flex-row gap-2 items-center">
           <div>More news</div>
           <Image width={16} height={16} alt="More news" src="/forward.svg" />
         </div>
