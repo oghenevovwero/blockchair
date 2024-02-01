@@ -20,7 +20,7 @@ const CoinChips = () => {
       </div>
       <div className="flex flex-col gap-1">
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-[6px]">
-          <Chip title="Get 7 BTC        " icon="/flower.png" className="bg-[#F29913]" />
+          <Chip title="Get 7 BTC      " icon="/flower.png" className="bg-[#F29913]" />
           <Chip title="Win 8.88 BTC " icon="/pen.png" className="bg-[#F13261]" />
           <Chip title="70 Free Spins  " icon="/kangaroo.png" className="bg-[#A542F0]" />
           <Chip title="Claim 9.99 BTC" icon="/gift-box.png" className="bg-[#4ACA1E]" />
