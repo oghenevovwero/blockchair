@@ -19,10 +19,10 @@ const InfoCard: React.FC<InfoCardProps> = () => {
         <PrivacyControl />
       </div>
       <div className="lg:col-span-2">
-        <div className="mb-5">
+        <div className="mb-3">
           <TransactionStatus />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-lg border-white bg-[#EFF2F9] border p-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-lg border-white shadow-lg shadow-[#B0BDC7] bg-[#EFF2F9] border p-3">
           <Senders />
           <Recipients />
         </div>

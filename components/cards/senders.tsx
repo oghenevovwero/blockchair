@@ -9,7 +9,7 @@ const Senders: React.FC<SendersProps> = () => {
         Senders{" "}
         <span className="py-0 px-1 text-sm ml-1 bg-white text-black font-normal rounded-full">1</span>
       </div>
-      <div className="flex flex-col gap-2 p-5 bg-[#FFFFFF]">
+      <div className="flex flex-col gap-2 rounded-b-lg p-5 bg-[#FFFFFF]">
         <span className="text-[#2170FF] break-all">
           bc1q0fhw64ksytynkkgteprc8gz7mstw5v0dr9l05m
           <div className="float-right">

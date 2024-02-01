@@ -10,9 +10,9 @@ const CoinChips = () => {
           <div className="opacity-45 font-[400] flex items-center">
             Bitcoin <span className="font-extrabold mb-2 mx-1">.</span> transactions
           </div>
-          <div className="flex flex-col sm:flex-row items-center">
+          <div className="flex flex-col min-[352px]:flex-row justify-start">
             <div className="mr-4 text-xl font-bold">Bitcoin transaction</div>
-            <div className="border-[0.5px] w-fit border-white font-[400] px-2 py-[3px] text-xs rounded-md bg-[#E7EBF5]">
+            <div className="border-[0.5px] w-fit h-fit border-white font-[400] px-2 py-[3px] text-xs rounded-md bg-[#E7EBF5]">
               API
             </div>
           </div>

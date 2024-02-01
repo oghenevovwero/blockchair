@@ -4,14 +4,14 @@ type TransactionSTatusProps = {};
 
 const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
   return (
-    <div className="flex flex-col rounded-lg text-black">
+    <div className="flex flex-col rounded-lg text-black border border-white shadow-md shadow-[#B0BDC7]">
       <div className="flex gap-5 p-5  bg-[#FFFFEE] rounded-t-lg">
         <div className="p-7 w-fit h-fit flex items-center justify-center rounded-full  bg-gradient-to-b from-[#57F630] via-[#3BB09A] to-[#257AEF]">
           <Image className="font-extralight" src="/tick.svg" width={20} height={20} alt="Checked" />
         </div>
         <div className="flex flex-col gap-2">
           <span className="font-[400] text-sm text-[#B0BDC7]">Transaction status</span>
-          <div className="flex justify-start flex-col min-[515px]:flex-row items-center gap-2">
+          <div className="flex justify-start flex-col min-[515px]:flex-row items-start gap-2">
             <span className="text-sm  md:text-lg">Confirmed 3482 confirmations</span>
             <div className="flex items-center justify-start gap-2">
               <Image src="/qmark.svg" height={20} width={20} alt="copy" />
@@ -24,16 +24,16 @@ const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
           </div>
         </div>
       </div>
-      <div className="flex p-5 justify-between bg-[#EFF2F9]">
+      <div className="flex p-5 justify-between rounded-b-lg bg-[#EFF2F9]">
         <div className="flex gap-2 items-center">
           <div className="w-[6px] h-[6px]">
             <svg viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 3.5L8.34742e-08 7L0 7.15493e-08L6 3.5Z" fill="blue"></path>
             </svg>
           </div>
-          <span>Additional info</span>
+          <span className="text-xs font-bold sm:text-xl sm:font-normal">Additional info</span>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-xs font-bold sm:text-xl sm:font-normal items-center justify-between">
           <Image src="/pdf.svg" width={25} height={25} alt="Pdf receipt" />
           <span>Transaction receipt</span>
         </div>

@@ -4,15 +4,15 @@ type RecipientsProps = {};
 
 const Recipients: React.FC<RecipientsProps> = () => {
   return (
-    <div className="flex flex-col gap-2 text-black">
-      <div className="flex flex-col border h-fit">
+    <div className="flex flex-col gap-1 text-black">
+      <div className="flex flex-col h-fit">
         <div className="p-2 flex justify-center w-full font-[400] text-sm text-[#B0BDC7] rounded-t-lg bg-[#F6F9FF]">
           Recipients{" "}
           <span className="py-0 px-1 text-sm ml-1 bg-white font-normal text-black rounded-full">
             2
           </span>
         </div>
-        <div className="flex flex-col gap-2 p-5 bg-[#FFFFFF]">
+        <div className="flex flex-col gap-2 p-5 rounded-b-lg bg-[#FFFFFF]">
           <span className="text-[#2170FF] break-all">
             bc1q0fhw64ksytynkkgteprc8gz7mstw5v0dr9l05s
             <div className="float-right">
@@ -24,7 +24,7 @@ const Recipients: React.FC<RecipientsProps> = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 p-5 rounded-lg bg-[#FFFFFF] border h-fit">
+      <div className="flex flex-col gap-2 p-5 rounded-lg bg-[#FFFFFF] h-fit">
         <span className="text-[#2170FF] break-all">
           bc1q0fhw64ksytynkkgteprc8gz7mstw5v0dr9l05s
           <div className="flex gap-2 float-right">

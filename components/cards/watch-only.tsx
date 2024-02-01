@@ -4,7 +4,7 @@ type WatchOnlyProps = {};
 
 const WatchOnly: React.FC<WatchOnlyProps> = () => {
   return (
-    <div className="rounded-lg flex gap-4 border-white text-black border p-5">
+    <div className="rounded-lg flex gap-4 border-white text-black border p-5 shadow-md shadow-[#B0BDC7]">
       <Image src="/watch-only.svg" width={50} height={50} alt="Awesome" />
       <div className="flex flex-col gap-3">
         <div className="text-sm font-bold">Watch-only wallet</div>

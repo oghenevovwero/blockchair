@@ -38,6 +38,8 @@ const Search = () => {
           placeholder:font-light 
           placeholder:text-[14px] 
           placeholder:text-[#5D5D5D]
+          active:outline-none
+          text-black
           "
           placeholder="          Search for transactions, addresses, blocks and embedded text data..."
         />
