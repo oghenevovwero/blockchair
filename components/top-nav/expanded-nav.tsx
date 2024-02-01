@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const ExpandedTopNav = () => {
   return (
-    <div className="mb-20">
-      <div className="flex text-sm font-semibold items-center gap-9 py-2 fixed z-10 left-[155px] right-[155px] top-0 bg-black">
+    <div className="bg-black fixed z-10 left-0 right-0 top-0">
+      <div className="flex text-sm font-semibold items-center gap-9 py-2 px-[155px]">
         <Image src="/logo-white.svg" width={150} height={150} alt="Logo" />
         <div className="flex-1">
           <Search />
@@ -34,7 +34,7 @@ const Search = () => {
           py-[9px] 
           rounded-lg 
           w-full 
-          bg-black 
+          bg-white
           placeholder:font-light 
           placeholder:text-[14px] 
           placeholder:text-[#5D5D5D]
@@ -44,8 +44,8 @@ const Search = () => {
         <div className="absolute inset-y-0 left-[6px] pl-2 flex items-center pointer-events-none">
           <Image src="/search.svg" height={18} width={18} alt="Search" />
         </div>
-        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-          <Image src="/camera.svg" height={25} width={25} alt="Search" />
+        <div className="absolute inset-y-0 right-[14px] flex items-center pointer-events-none">
+          <Image className="opacity-45" src="/camera.svg" height={25} width={25} alt="Search" />
         </div>
       </div>
       <svg

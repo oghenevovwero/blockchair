@@ -4,16 +4,16 @@ type BtcPriceProps = {};
 
 const BtcPrice: React.FC<BtcPriceProps> = () => {
   return (
-    <div className="rounded-lg flex flex-col border-gray-800 border p-5">
+    <div className="rounded-lg flex flex-col border-white border p-5 text-black">
       <div className="flex gap-2 justify-between items-center">
         <span>BTC price</span>
         <span className="font-light text-sm">43,391.00 USD</span>
-        <div className="text-[#00CD3C] flex gap-1">
+        <div className="text-[#4AC91E] flex gap-1">
           <Image src="/up-green.svg" width={10} height={10} alt="Increment" />
           <span>0.63%</span>
         </div>
       </div>
-      <span className="flex justify-start mb-2 font-[200] text-sm text-[#7691A5]">Last month</span>
+      <span className="flex justify-start mb-2 font-[400] text-sm text-[#7691A5]">Last month</span>
       <div>
         <Image src="/chart.png" width={700} height={150} alt="Chart" />
         <span className="font-[200] text-sm text-[#7691A5]">Recommended transaction fee</span>

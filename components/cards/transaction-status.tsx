@@ -4,27 +4,27 @@ type TransactionSTatusProps = {};
 
 const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
   return (
-    <div className="flex flex-col rounded-lg border-gray-800 border">
-      <div className="flex gap-5 p-5  bg-[#131313] rounded-t-lg">
+    <div className="flex flex-col rounded-lg text-black">
+      <div className="flex gap-5 p-5  bg-[#FFFFEE] rounded-t-lg">
         <div className="p-7 w-fit h-fit flex items-center justify-center rounded-full  bg-gradient-to-b from-[#57F630] via-[#3BB09A] to-[#257AEF]">
           <Image className="font-extralight" src="/tick.svg" width={20} height={20} alt="Checked" />
         </div>
         <div className="flex flex-col gap-2">
-          <span className="font-[200] text-sm text-[#7691A5]">Transaction status</span>
+          <span className="font-[400] text-sm text-[#B0BDC7]">Transaction status</span>
           <div className="flex justify-start flex-col min-[515px]:flex-row items-center gap-2">
-            <span className="text-sm md:text-lg">Confirmed 3482 confirmations</span>
+            <span className="text-sm  md:text-lg">Confirmed 3482 confirmations</span>
             <div className="flex items-center justify-start gap-2">
               <Image src="/qmark.svg" height={20} width={20} alt="copy" />
-              <div className="rounded-full bg-[#21BAF7] text-sm px-2 py-[2px]">segWit</div>
+              <div className="rounded-full bg-[#21BAF7]  text-sm px-2 py-[2px]">segWit</div>
             </div>
           </div>
           <div className="flex gap-2 justify-start text-sm">
-            <span className="font-extralight">Block id</span>
+            <span className="font-extralight ">Block id</span>
             <span className="text-[#2170FF] font-extrabold">824,689</span>
           </div>
         </div>
       </div>
-      <div className="flex p-5 justify-between">
+      <div className="flex p-5 justify-between bg-[#EFF2F9]">
         <div className="flex gap-2 items-center">
           <div className="w-[6px] h-[6px]">
             <svg viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">

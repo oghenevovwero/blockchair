@@ -1,14 +1,13 @@
 import Image from "next/image";
 import CryptoNews from "../cards/crypto-news";
-import InfoCard from "./info-card";
 import PaddedWrapper from "../wrappers/padded";
 
 type NewsCardsProps = {};
 
 const NewsCards: React.FC<NewsCardsProps> = () => {
   return (
-    <PaddedWrapper className="bg-[#131313] p-11 mt-12">
-      <div className="text-2xl mb-11">Blockchair Crypto News</div>
+    <PaddedWrapper>
+      <div className="text-2xl mb-11 text-black font-bold">Blockchair Crypto News</div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <CryptoNews
           author="en.coin-turk.com"
@@ -32,7 +31,7 @@ const NewsCards: React.FC<NewsCardsProps> = () => {
       <div className="flex mt-16 text-lg md:text-xl font-bold justify-between items-center text-[#2170FF]">
         <div className="flex flex-col sm:flex-row justify-center gap-2 items-center">
           <div>More news</div>
-          <Image width={30} height={30} alt="More news" src="/forward.svg" />
+          <Image className="mb-3" width={18} height={18} alt="More news" src="/forward.svg" />
         </div>
         <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-2">
           <Image height={30} width={30} alt="telegram" src="/telegram-blue.svg" />
