@@ -34,7 +34,7 @@ const NewsCards: React.FC<NewsCardsProps> = () => {
           <div>More news</div>
           <Image width={16} height={16} alt="More news" src="/forward.svg" />
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-2">
+        <div className="flex flex-col-reverse sm:flex-row items-center gap-2">
           <Image height={30} width={30} alt="telegram" src="/telegram-blue.svg" />
           <div className="text-[16px]">Subscribe to news on telegram</div>
         </div>
