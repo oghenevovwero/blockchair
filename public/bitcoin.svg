@@ -1,0 +1,15 @@
+<svg width="60" height="60" viewBox="0 0 55.1 55.1" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M27.5 55.0179C42.6878 55.0179 55 42.7079 55 27.5179C55 12.3279 42.6878 0.0179443 27.5 0.0179443C12.3122 0.0179443 0 12.3301 0 27.5179C0 42.7058 12.3122 55.0179 27.5 55.0179Z" fill="url(#g_logo-bitcoin0)"/>
+    <path d="M33.3409 27.9044H18V17.6771H33.3409C36.1659 17.6771 38.4545 19.9658 38.4545 22.7908C38.4545 25.6158 36.1659 27.9044 33.3409 27.9044Z" stroke="white" stroke-width="2.8" stroke-miterlimit="10"/>
+    <path d="M33.3409 38.1319H18V27.9047H33.3409C36.1659 27.9047 38.4545 30.1933 38.4545 33.0183C38.4545 35.8433 36.1659 38.1319 33.3409 38.1319Z" stroke="white" stroke-width="2.8" stroke-miterlimit="10"/>
+    <path d="M27.2041 13.0179V17.5634" stroke="white" stroke-width="2.8" stroke-miterlimit="10"/>
+    <path d="M31.75 13.0179V17.5634" stroke="white" stroke-width="2.8" stroke-miterlimit="10"/>
+    <path d="M27.2041 38.0182V42.5636" stroke="white" stroke-width="2.8" stroke-miterlimit="10"/>
+    <path d="M31.75 38.0182V42.5636" stroke="white" stroke-width="2.8" stroke-miterlimit="10"/>
+<defs>
+    <linearGradient id="g_logo-bitcoin0" x1="28.1761" y1="0.0179443" x2="28.1761" y2="55.0179" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FF9F00"/>
+        <stop offset="1" stop-color="#FFF200"/>
+    </linearGradient>
+</defs>
+</svg>
