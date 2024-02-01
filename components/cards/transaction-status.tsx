@@ -13,7 +13,7 @@ const TransactionStatus: React.FC<TransactionSTatusProps> = () => {
           <span className="font-[200] text-sm text-[#7691A5]">Transaction status</span>
           <div className="flex flex-col min-[515px]:flex-row items-center gap-2">
             <span className="text-sm md:text-lg">Confirmed 3482 confirmations</span>
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-start md:justify-center gap-2">
               <Image src="/qmark.svg" height={20} width={20} alt="copy" />
               <div className="rounded-full bg-[#21BAF7] text-sm px-2 py-[2px]">segWit</div>
             </div>
