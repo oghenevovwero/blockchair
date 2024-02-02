@@ -35,6 +35,7 @@ const Search = () => {
           rounded-lg 
           w-full 
           bg-white
+          dark:bg-black
           placeholder:font-light 
           placeholder:text-[14px] 
           placeholder:text-[#5D5D5D]
