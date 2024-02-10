@@ -39,6 +39,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { toast } from "sonner";
 import UpdateTransaction, { UpdateData } from "@/components/update-transaction";
 import Home from "./home";
+import { useRouter } from "next/navigation";
+import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export type Transaction = {
   hash: string;
@@ -59,6 +61,7 @@ export default function Records({
   //const [rowSelection, setRowSelection] = React.useState({});
   const [dataLoaded, setDataLoaded] = React.useState(false);
   const [data, setData] = React.useState<Transaction[]>([]);
+  const router = useRouter();
 
   const columns: ColumnDef<Transaction>[] = [
     // {
@@ -169,11 +172,6 @@ export default function Records({
 
               <DropdownMenuItem
                 onClick={() => {
-                  const b4 = window.location.pathname.substring(
-                    0,
-                    window.location.pathname.lastIndexOf("/")
-                  );
-                  window.history.pushState("", "", b4 + "/" + transaction.hash);
                   setComponent(<Home transaction={transaction} />);
                 }}
               >

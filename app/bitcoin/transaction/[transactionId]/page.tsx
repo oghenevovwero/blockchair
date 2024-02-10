@@ -1,7 +1,7 @@
 "use client";
 
 import Records, { Transaction } from "@/components/records";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, Context } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
