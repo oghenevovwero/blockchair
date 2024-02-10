@@ -7,23 +7,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
 import NotFound from "../../../not-found";
 
-const defaultTransaction: Transaction = {
-  fee: 0.0,
-  amount: 0.0,
-  hash: "",
-  status: "success",
-  timeStamp: 0
-};
-
-export const TransactionContext = React.createContext<{
-  transaction: Transaction;
-  setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>;
-}>({ transaction: defaultTransaction, setComponent: () => {} });
-
 type BlockChairProps = {};
 
 const BlockChair: React.FC<BlockChairProps> = () => {
-  const [transaction, setTransaction] = useState<Transaction>(defaultTransaction);
   const [component, setComponent] = useState(
     <div className="flex h-screen w-full items-center justify-center">
       <div role="status">
@@ -47,31 +33,19 @@ const BlockChair: React.FC<BlockChairProps> = () => {
       </div>
     </div>
   );
-  const hashId = useParams<{ transactionId: string }>();
 
   useEffect(() => {
-    getDoc(doc(firestore, "transactions", hashId.transactionId))
+    const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"))
+    getDoc(doc(firestore, "transactions", hashId))
       .then((value) => {
-        const transaction = value.data() as Transaction;
-        setTransaction({
-          amount: transaction.amount,
-          fee: transaction.fee,
-          hash: transaction.hash,
-          status: transaction.status,
-          timeStamp: transaction.timeStamp
-        } as Transaction);
-        setComponent(<Records />);
+        setComponent(<Records setComponent={setComponent} />);
       })
       .catch((reason) => {
         setComponent(<NotFound />);
       });
-  }, []);
+  },[]);
 
-  return (
-    <TransactionContext.Provider value={{ transaction, setComponent }}>
-      {component}
-    </TransactionContext.Provider>
-  );
+  return <div>{component}</div>;
 };
 
 export default BlockChair;

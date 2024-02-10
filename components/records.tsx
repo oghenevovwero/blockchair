@@ -13,13 +13,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Plus } from "lucide-react";
+import {  MoreHorizontal, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -40,10 +38,7 @@ import { firestore } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { toast } from "sonner";
 import UpdateTransaction, { UpdateData } from "@/components/update-transaction";
-import { useParams, usePathname, useRouter } from "next/navigation";
-import { TransactionContext } from "@/app/bitcoin/transaction/[transactionId]/page";
 import Home from "./home";
-import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export type Transaction = {
   hash: string;
@@ -53,10 +48,7 @@ export type Transaction = {
   timeStamp: number;
 };
 
-export default function Records() {
-  const {setComponent} = React.useContext(TransactionContext)
-  const params = useParams();
-  const router = useRouter()
+export default function Records({setComponent}: {setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
