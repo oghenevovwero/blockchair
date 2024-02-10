@@ -7,15 +7,14 @@ import TransactionHash from "../cards/transaction-hash";
 import TransactionStatus from "../cards/transaction-status";
 import WatchOnly from "../cards/watch-only";
 import PrivacyControl from "../privacy-control";
+import { Transaction } from "../records";
 import PaddedWrapper from "../wrappers/padded";
 
-type InfoCardProps = {};
-
-const InfoCard: React.FC<InfoCardProps> = () => {
+function InfoCard({transaction}:{transaction: Transaction}) {
   return (
     <PaddedWrapper className="grid grid-cols-1 lg:grid-cols-4 gap-5">
       <div className="flex flex-col">
-        <TransactionHash />
+        <TransactionHash transaction={transaction} />
         <PrivacyControl />
       </div>
       <div className="lg:col-span-2">

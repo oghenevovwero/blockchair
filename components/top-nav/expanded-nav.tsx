@@ -4,11 +4,11 @@ const ExpandedTopNav = () => {
   return (
     <div className="bg-black fixed z-10 left-0 right-0 top-0">
       <div className="flex text-sm font-semibold items-center gap-9 py-2 px-[155px]">
-        <Image src="/logo-white.svg" width={150} height={150} alt="Logo" />
+        <Image src="/logo-white.svg" width={151} height={155} alt="Logo" />
         <div className="flex-1">
           <Search />
         </div>
-        <div className="flex items-center gap-[22px]">
+        <div className="flex items-center gap-[21px] text-sm">
           <div className="bg-[#161616] rounded-lg px-2 py-1">
             <Image src="/portfolio-nav.svg" width={20} height={20} alt="Portfolio" />
           </div>
@@ -37,12 +37,14 @@ const Search = () => {
           bg-white
           dark:bg-black
           placeholder:font-light 
-          placeholder:text-[14px] 
+          placeholder:opacity-80
+          placeholder:tracking-wide
+          placeholder:text-[13px] 
           placeholder:text-[#5D5D5D]
           active:outline-none
           text-black
           "
-          placeholder="          Search for transactions, addresses, blocks and embedded text data..."
+          placeholder="         Search for transactions, addresses, blocks and embedded text data..."
         />
         <div className="absolute inset-y-0 left-[6px] pl-2 flex items-center pointer-events-none">
           <Image src="/search.svg" height={18} width={18} alt="Search" />
