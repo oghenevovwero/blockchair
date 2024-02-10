@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {  MoreHorizontal, Plus } from "lucide-react";
+import { MoreHorizontal, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -48,7 +48,11 @@ export type Transaction = {
   timeStamp: number;
 };
 
-export default function Records({setComponent}: {setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>}) {
+export default function Records({
+  setComponent,
+}: {
+  setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>;
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -154,7 +158,7 @@ export default function Records({setComponent}: {setComponent: React.Dispatch<Re
                       fee: transaction.fee,
                       amount: transaction.amount,
                       hash: transaction.hash,
-                      timeStamp: new Date().getTime()
+                      timeStamp: new Date().getTime(),
                     });
                     setOpenUpdateModal(true);
                   }}
@@ -163,15 +167,18 @@ export default function Records({setComponent}: {setComponent: React.Dispatch<Re
                 </DropdownMenuItem>
               </div>
 
-                <DropdownMenuItem
-                  onClick={() => {
-                   window.history.pushState("","", `/bitcoin/transaction/${transaction.hash}`);
-                    setComponent(<Home transaction={transaction} />)
-                  }}
-                >
-                  View transaction details
-                </DropdownMenuItem>
-              
+              <DropdownMenuItem
+                onClick={() => {
+                  const b4 = window.location.pathname.substring(
+                    0,
+                    window.location.pathname.lastIndexOf("/")
+                  );
+                  window.history.pushState("", "", b4 + "/" + transaction.hash);
+                  setComponent(<Home transaction={transaction} />);
+                }}
+              >
+                View transaction details
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -189,7 +196,7 @@ export default function Records({setComponent}: {setComponent: React.Dispatch<Re
             fee: transaction.fee,
             hash: transaction.hash,
             status: "success",
-            timeStamp: transaction.timeStamp
+            timeStamp: transaction.timeStamp,
           } as Transaction;
         })
       );
