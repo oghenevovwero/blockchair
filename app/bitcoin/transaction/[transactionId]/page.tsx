@@ -35,15 +35,19 @@ const BlockChair: React.FC<BlockChairProps> = () => {
   );
 
   useEffect(() => {
-    const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"))
+    const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"));
     getDoc(doc(firestore, "transactions", hashId))
       .then((value) => {
-        setComponent(<Records setComponent={setComponent} />);
+        if (!value.exists()) {
+          setComponent(<NotFound />);
+        } else {
+          setComponent(<Records setComponent={setComponent} />);
+        }
       })
       .catch((reason) => {
         setComponent(<NotFound />);
       });
-  },[]);
+  }, []);
 
   return <div>{component}</div>;
 };
