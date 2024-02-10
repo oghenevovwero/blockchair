@@ -172,7 +172,7 @@ export default function Records() {
 
                 <DropdownMenuItem
                   onClick={() => {
-                   // window.history.pushState("","", `/bitcoin/transaction/${transaction.hash}`);
+                   window.history.pushState("","", `/bitcoin/transaction/${transaction.hash}`);
                     setComponent(<Home transaction={transaction} />)
                   }}
                 >

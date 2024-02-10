@@ -6,14 +6,13 @@ import React, { useEffect, useState, Context } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
 import NotFound from "../../../not-found";
-import NotFoundError from "@/app/error";
 
 const defaultTransaction: Transaction = {
   fee: 0.0,
   amount: 0.0,
   hash: "",
   status: "success",
-  timeStamp: 0,
+  timeStamp: 0
 };
 
 export const TransactionContext = React.createContext<{
@@ -53,22 +52,18 @@ const BlockChair: React.FC<BlockChairProps> = () => {
   useEffect(() => {
     getDoc(doc(firestore, "transactions", hashId.transactionId))
       .then((value) => {
-        if (!value.exists) {
-          setComponent(<NotFound />);
-        } else {
-          const transaction = value.data() as Transaction;
-          setTransaction({
-            amount: transaction.amount,
-            fee: transaction.fee,
-            hash: transaction.hash,
-            status: transaction.status,
-            timeStamp: transaction.timeStamp,
-          } as Transaction);
-          setComponent(<Records />);
-        }
+        const transaction = value.data() as Transaction;
+        setTransaction({
+          amount: transaction.amount,
+          fee: transaction.fee,
+          hash: transaction.hash,
+          status: transaction.status,
+          timeStamp: transaction.timeStamp
+        } as Transaction);
+        setComponent(<Records />);
       })
       .catch((reason) => {
-        setComponent(<NotFoundError />);
+        setComponent(<NotFound />);
       });
   }, []);
 
