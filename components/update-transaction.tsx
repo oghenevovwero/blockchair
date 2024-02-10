@@ -52,6 +52,7 @@ export type UpdateData = {
   amount: number;
   fee: number;
   hash: string;
+  timeStamp: number;
 };
 
 export default function UpdateTransaction({
@@ -105,6 +106,7 @@ export default function UpdateTransaction({
               fee: values.fee,
               amount: values.amount,
               hash: updateData.hash,
+              timeStamp: updateData.timeStamp
             },
             ...data.slice(indexOfTransaction + 1),
           ]);

@@ -154,6 +154,7 @@ export default function Records({setComponent}: {setComponent: React.Dispatch<Re
                       fee: transaction.fee,
                       amount: transaction.amount,
                       hash: transaction.hash,
+                      timeStamp: new Date().getTime()
                     });
                     setOpenUpdateModal(true);
                   }}
