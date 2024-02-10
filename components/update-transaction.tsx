@@ -129,7 +129,7 @@ export default function UpdateTransaction({
   }
 
   return (
-    <Dialog open={openUpdateModal}>
+    <Dialog open={openUpdateModal} onOpenChange={setOpenUpdateModal}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Update transaction details</DialogTitle>
