@@ -36,11 +36,11 @@ import {
 import NewTransaction from "@/components/new-transaction";
 import { firestore } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import { toast } from "sonner";
 import UpdateTransaction, { UpdateData } from "@/components/update-transaction";
 import Home from "./home";
 import { useRouter } from "next/navigation";
-import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import toast from "react-hot-toast";
+import ContextModal from "./context-modal";
 
 export type Transaction = {
   hash: string;
@@ -62,6 +62,7 @@ export default function Records({
   const [dataLoaded, setDataLoaded] = React.useState(false);
   const [data, setData] = React.useState<Transaction[]>([]);
   const router = useRouter();
+
 
   const columns: ColumnDef<Transaction>[] = [
     // {
@@ -121,66 +122,19 @@ export default function Records({
       header: () => <div className="text-center">Status</div>,
       cell: ({ row }) =>
         row.getValue("status") === "pending" ? (
-          <div className="bg-yellow-300 rounded-full w-[10px] h-[10px] mx-auto"></div>
+          <div className="bg-yellow-300 rounded-full w-[6px] sm:w-[10px] h-[6px] sm:h-[10px] mx-auto"></div>
         ) : row.getValue("status") === "success" ? (
-          <div className="bg-green-500 rounded-full w-[10px] h-[10px] mx-auto"></div>
+          <div className="bg-green-500 rounded-full w-[6px] sm:w-[10px] h-[6px] sm:h-[10px] mx-auto"></div>
         ) : (
-          <div className="bg-red-500 rounded-full w-[10px] h-[10px] mx-auto"></div>
+          <div className="bg-red-500 rounded-full w-[6px] sm:w-[10px] h-[6px] sm:h-[10px] mx-auto"></div>
         ),
     },
     {
-      id: "actions",
-      enableHiding: false,
-      header: () => <Plus onClick={() => setOpenNewModal(true)} />,
-      cell: ({ row }) => {
-        const transaction = row.original;
-
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => {
-                  navigator.clipboard.writeText(transaction.hash);
-                  toast("Transaction hash copied to clipboard");
-                }}
-              >
-                Copy transaction hash
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <div className="my-3">
-                <DropdownMenuItem
-                  onClick={() => {
-                    setUpdateData({
-                      fee: transaction.fee,
-                      amount: transaction.amount,
-                      hash: transaction.hash,
-                      timeStamp: new Date().getTime(),
-                    });
-                    setOpenUpdateModal(true);
-                  }}
-                >
-                  Update transaction
-                </DropdownMenuItem>
-              </div>
-
-              <DropdownMenuItem
-                onClick={() => {
-                  setComponent(<Home transaction={transaction} />);
-                }}
-              >
-                View transaction details
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
+      accessorKey: "hash",
+      header: () => <div className="text-left">Hash</div>,
+      cell: ({ row }) => (
+        <div className="text-left ">{(row.getValue("hash") as string).substring(0, 5) + "..."}</div>
+      ),
     },
   ];
 
@@ -221,24 +175,28 @@ export default function Records({
     // },
   });
   const [openNewModal, setOpenNewModal] = React.useState(false);
+  const [openContextModal, setOpenContextModal] = React.useState(false);
   const [openUpdateModal, setOpenUpdateModal] = React.useState(false);
   const [updateData, setUpdateData] = React.useState<UpdateData>();
 
   return (
     <div>
-      <NewTransaction
-        data={data}
-        setData={setData}
-        openModal={openNewModal}
-        setOpenModal={setOpenNewModal}
-      />
-      {updateData && (
+      {openNewModal && (
+        <NewTransaction data={data} setData={setData} setOpenModal={setOpenNewModal} />
+      )}
+      {updateData && openContextModal && (
+        <ContextModal
+          setOpenUpdateModal={setOpenUpdateModal}
+          setOpenModal={setOpenContextModal}
+          updateData={updateData}
+        />
+      )}
+      {updateData && openUpdateModal && (
         <UpdateTransaction
           updateData={updateData!}
-          data={data}
           setData={setData}
-          openUpdateModal={openUpdateModal}
-          setOpenUpdateModal={setOpenUpdateModal}
+          data={data}
+          setOpenModal={setOpenUpdateModal}
         />
       )}
       {!dataLoaded ? (
@@ -285,9 +243,17 @@ export default function Records({
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                    <TableRow
+                      className="hover:bg-gray-300 hover:cursor-pointer text-xs sm:text-sm"
+                      onClick={() => {
+                        setUpdateData(row.original);
+                        setOpenContextModal(true);
+                      }}
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell className="py-6" key={cell.id}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableCell>
                       ))}
@@ -302,30 +268,6 @@ export default function Records({
                 )}
               </TableBody>
             </Table>
-          </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{" "}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div> */}
-            {/* <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                Next
-              </Button>
-            </div> */}
           </div>
         </div>
       )}

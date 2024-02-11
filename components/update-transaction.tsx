@@ -1,52 +1,17 @@
 "use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
+import { useCallback, useState } from "react";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import {
-  collection,
-  addDoc,
-  DocumentReference,
-  DocumentData,
-  setDoc,
-  doc,
-} from "firebase/firestore";
-import { firestore } from "./../firebase";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { DialogClose } from "@radix-ui/react-dialog";
-import React from "react";
-import { toast } from "sonner";
+  FieldValues,
+  SubmitHandler,
+  useForm
+} from "react-hook-form";
+import Modal from "./modal";
+import Heading from "./heading";
+import Input from "./input";
+import { toast } from "react-hot-toast";
 import { Transaction } from "./records";
-
-const formSchema = z.object({
-  amount: z.coerce.number().positive({
-    message: "Amount must be positive",
-  }),
-  fee: z.coerce.number().positive({
-    message: "Fee must be positive",
-  }),
-});
+import { doc, setDoc } from "firebase/firestore";
+import { firestore } from "@/firebase";
 
 export type UpdateData = {
   amount: number;
@@ -56,31 +21,27 @@ export type UpdateData = {
 };
 
 export default function UpdateTransaction({
-  openUpdateModal,
-  setOpenUpdateModal,
+  setOpenModal,
   setData,
   data,
-  updateData,
+  updateData
 }: {
-  updateData: UpdateData;
   data: Transaction[];
+  updateData: UpdateData;
   setData: React.Dispatch<React.SetStateAction<Transaction[]>>;
-  openUpdateModal: boolean;
-  setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FieldValues>({
     defaultValues: {
       amount: 0.0,
       fee: 0.0,
-    },
+    }
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit: SubmitHandler<FieldValues> = (values) => {
     const indexOfTransaction = data.findIndex((item) => item.hash === updateData.hash);
 
-    setOpenUpdateModal(false);
+    setOpenModal(false);
     form.reset();
     setData([
       ...data.slice(0, indexOfTransaction),
@@ -98,7 +59,7 @@ export default function UpdateTransaction({
         { merge: true }
       )
         .then(() => {
-          toast("Transaction updated successfully");
+          toast.success("Transaction updated successfully");
           setData([
             ...data.slice(0, indexOfTransaction),
             {
@@ -112,7 +73,7 @@ export default function UpdateTransaction({
           ]);
         })
         .catch((reason) => {
-          toast("Transaction failed to update");
+          toast.error("Error updating transaction");
           setData([
             {
               amount: values.amount,
@@ -124,71 +85,43 @@ export default function UpdateTransaction({
           ]);
         });
     } catch (e) {
-      console.error("Error updating document: ", e);
+      toast.error("Error updating transaction");
     }
-  }
+  };
+
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading
+        title="Fill update transaction form"
+        subtitle="Update your transaction!"
+      />
+      <Input
+        register={form.register}
+        id="amount"
+        label="Amount"
+        type="number"
+        errors={form.formState.errors}
+        required
+      />
+      <Input
+        register={form.register}
+        id="fee"
+        label="Fee"
+        type="number"
+        errors={form.formState.errors}
+        required
+      />
+    </div>
+  );
 
   return (
-    <Dialog open={openUpdateModal} onOpenChange={setOpenUpdateModal}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Update transaction details</DialogTitle>
-          <DialogDescription>
-            Enter the amount and fee for the transaction then update
-          </DialogDescription>
-        </DialogHeader>
-
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="amount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Amount</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Transaction amount" {...field} />
-                  </FormControl>
-                  <FormDescription>New amount to update to</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fee"
-              render={({ field }) => (
-                <div className="mt-5">
-                  <FormItem>
-                    <FormLabel>Fee</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Transaction fee" {...field} />
-                    </FormControl>
-                    <FormDescription>New fee to update to</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                </div>
-              )}
-            />
-            <Button type="submit">Update transaction</Button>
-          </form>
-        </Form>
-
-        {/* <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Amount
-            </Label>
-            <Input id="name" defaultValue="0.0" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="amount" className="text-right">
-              Fee
-            </Label>
-            <Input id="amount" defaultValue="0.0" className="col-span-3" />
-          </div>
-        </div> */}
-      </DialogContent>
-    </Dialog>
+    <Modal
+      isOpen={true}
+      title="Update transaction"
+      actionLabel="Update"
+      onClose={() => {setOpenModal(false)}}
+      onSubmit={form.handleSubmit(onSubmit)}
+      body={bodyContent}
+    />
   );
 }
