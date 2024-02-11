@@ -3,7 +3,7 @@ import PaddedWrapper from "../wrappers/padded";
 
 const ExpandedFooter = () => {
   return (
-    <PaddedWrapper className="mt-28 pb-28">
+    <PaddedWrapper className="pt-28 pb-28 text-white">
       <div className="flex justify-center">
         <div className="grid grid-cols-5 text-[14px] 2xl:text-[15px] gap-24">
           <div className="flex flex-col gap-2">

@@ -5,7 +5,7 @@ import CoinChips from "@/components/sections/coin-chips";
 import InfoCard from "@/components/sections/info-card";
 import { Transaction } from "./records";
 
-export default function Home({transaction}:{transaction: Transaction}) {
+export default function Home({ transaction }: { transaction: Transaction }) {
   return (
     <>
       <Nav />
@@ -14,9 +14,11 @@ export default function Home({transaction}:{transaction: Transaction}) {
         <InfoCard transaction={transaction} />
       </div>
       <div className="bg-[#FFFFFF] dark:bg-[#131313] py-11">
-      <NewsCards />
+        <NewsCards />
       </div>
-      <Footer />
+      <div className="dark:bg-[#0B0B0B]">
+        <Footer />
+      </div>
     </>
   );
 }

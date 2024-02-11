@@ -2,14 +2,14 @@ import Image from "next/image";
 
 const ExpandedTopNav = () => {
   return (
-    <div className="bg-black fixed z-10 left-0 right-0 top-0">
+    <div className="bg-black text-white fixed z-10 left-0 right-0 top-0">
       <div className="flex text-sm font-semibold items-center gap-9 py-2 px-[155px]">
         <Image src="/logo-white.svg" width={151} height={155} alt="Logo" />
         <div className="flex-1">
           <Search />
         </div>
         <div className="flex items-center gap-[21px] text-sm">
-          <div className="bg-[#161616] rounded-lg px-2 py-1">
+          <div className="rounded-lg px-2 py-1">
             <Image src="/portfolio-nav.svg" width={20} height={20} alt="Portfolio" />
           </div>
           <div>Explorers</div>

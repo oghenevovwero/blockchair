@@ -1,15 +1,14 @@
 import Image from "next/image";
-import ExpandedFooter from "./expanded-footer";
 
 const MinimizedFooter = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-3 pb-28 mt-8">
+    <div className="flex flex-col justify-center items-center gap-3 pb-28 pt-8 text-white">
       <div>About Blockchair</div>
       <div>FAQ</div>
       <div>Changelog</div>
       <div>Careers</div>
       <div>Terms of service</div>
-      <div className="flex justify-center items-center gap-5">
+      <div className="flex justify-center items-center gap-5 mt-8">
         <Image src="/twitter.svg" width={25} height={25} alt="Privacy crest" />
         <Image src="/telegram.svg" width={45} height={45} alt="Privacy crest" />
         <Image src="/github.svg" width={25} height={25} alt="Privacy crest" />
