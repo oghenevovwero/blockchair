@@ -13,7 +13,7 @@ const NotFound: React.FC<NotFoundProps> = () => {
             Sorry, no page matched your query
           </p>
           <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-            This could be due to a faulty
+            This could be due to a faulty network
           </p>
         </div>
       </div>

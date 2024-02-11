@@ -13,18 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { MoreHorizontal, Plus } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -36,11 +25,8 @@ import {
 import NewTransaction from "@/components/new-transaction";
 import { firestore } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import UpdateTransaction, { UpdateData } from "@/components/update-transaction";
-import Home from "./home";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import ContextModal from "./context-modal";
+import UpdateTransaction from "./update-transaction";
 
 export type Transaction = {
   hash: string;
@@ -55,38 +41,11 @@ export default function Records({
 }: {
   setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>;
 }) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  //const [rowSelection, setRowSelection] = React.useState({});
   const [dataLoaded, setDataLoaded] = React.useState(false);
   const [data, setData] = React.useState<Transaction[]>([]);
-  const router = useRouter();
 
 
   const columns: ColumnDef<Transaction>[] = [
-    // {
-    //   id: "select",
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
-
     {
       accessorKey: "amount",
       header: () => <div className="text-left">Amount</div>,
@@ -159,41 +118,32 @@ export default function Records({
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    // onRowSelectionChange: setRowSelection,
-    // state: {
-    //   sorting,
-    //   columnFilters,
-    //   columnVisibility,
-    //   rowSelection,
-    // },
   });
   const [openNewModal, setOpenNewModal] = React.useState(false);
   const [openContextModal, setOpenContextModal] = React.useState(false);
   const [openUpdateModal, setOpenUpdateModal] = React.useState(false);
-  const [updateData, setUpdateData] = React.useState<UpdateData>();
+  const [transaction, setUpdateData] = React.useState<Transaction>();
 
   return (
     <div>
       {openNewModal && (
         <NewTransaction data={data} setData={setData} setOpenModal={setOpenNewModal} />
       )}
-      {updateData && openContextModal && (
+      {transaction && openContextModal && (
         <ContextModal
           setOpenUpdateModal={setOpenUpdateModal}
           setOpenModal={setOpenContextModal}
-          updateData={updateData}
+          setComponent={setComponent}
+          transaction={transaction}
         />
       )}
-      {updateData && openUpdateModal && (
+      {transaction && openUpdateModal && (
         <UpdateTransaction
-          updateData={updateData!}
+          transaction={transaction!}
           setData={setData}
           data={data}
           setOpenModal={setOpenUpdateModal}

@@ -13,21 +13,14 @@ import { Transaction } from "./records";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
 
-export type UpdateData = {
-  amount: number;
-  fee: number;
-  hash: string;
-  timeStamp: number;
-};
-
 export default function UpdateTransaction({
   setOpenModal,
   setData,
   data,
-  updateData
+  transaction
 }: {
   data: Transaction[];
-  updateData: UpdateData;
+  transaction: Transaction;
   setData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -39,19 +32,19 @@ export default function UpdateTransaction({
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (values) => {
-    const indexOfTransaction = data.findIndex((item) => item.hash === updateData.hash);
+    const indexOfTransaction = data.findIndex((item) => item.hash === transaction.hash);
 
     setOpenModal(false);
     form.reset();
     setData([
       ...data.slice(0, indexOfTransaction),
-      { ...updateData, status: "pending" },
+      { ...transaction, status: "pending" },
       ...data.slice(indexOfTransaction + 1),
     ]);
 
     try {
       setDoc(
-        doc(firestore, "transactions", updateData.hash),
+        doc(firestore, "transactions", transaction.hash),
         {
           amount: values.amount,
           fee: values.fee,
@@ -66,8 +59,8 @@ export default function UpdateTransaction({
               status: "success",
               fee: values.fee,
               amount: values.amount,
-              hash: updateData.hash,
-              timeStamp: updateData.timeStamp
+              hash: transaction.hash,
+              timeStamp: transaction.timeStamp
             },
             ...data.slice(indexOfTransaction + 1),
           ]);
@@ -79,7 +72,7 @@ export default function UpdateTransaction({
               amount: values.amount,
               status: "failed",
               fee: values.fee,
-              hash: updateData.hash,
+              hash: transaction.hash,
             } as Transaction,
             ...data,
           ]);

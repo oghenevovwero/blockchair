@@ -1,29 +1,20 @@
 "use client";
-import { useCallback, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./modi";
-import Heading from "./heading";
-import Input from "./input";
 import { toast } from "react-hot-toast";
 import { Transaction } from "./records";
-import { doc, setDoc } from "firebase/firestore";
-import { firestore } from "@/firebase";
+import Home from "./home";
 
-export type UpdateData = {
-  amount: number;
-  fee: number;
-  hash: string;
-  timeStamp: number;
-};
 
 export default function ContextModal({
   setOpenModal,
-  updateData,
-  setOpenUpdateModal
+  transaction: updateData,
+  setOpenUpdateModal,
+  setComponent
 }: {
-  updateData: UpdateData;
+  transaction: Transaction;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>
 }) {  
   const bodyContent = (
     <div className="flex flex-col text-xl font-light"
@@ -45,7 +36,9 @@ export default function ContextModal({
       }}>
         Update transaction
       </div>
-      <div className="py-5 px-2 rounded-lg hover:bg-gray-300 hover:cursor-pointer">
+      <div onClick={() => {
+        setComponent(<Home transaction={updateData} />)
+      }} className="py-5 px-2 rounded-lg hover:bg-gray-300 hover:cursor-pointer">
         View transaction details
       </div>
       
