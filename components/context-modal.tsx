@@ -7,10 +7,12 @@ import Home from "./home";
 
 export default function ContextModal({
   setOpenModal,
-  transaction: updateData,
+  transaction,
   setOpenUpdateModal,
-  setComponent
+  setComponent,
+  setPageTransaction
 }: {
+  setPageTransaction: React.Dispatch<React.SetStateAction<Transaction | undefined>>;
   transaction: Transaction;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +22,7 @@ export default function ContextModal({
     <div className="flex flex-col text-xl font-light"
     >
       <div className="py-5 px-2 rounded-lg hover:bg-gray-300 hover:cursor-pointer" onClick={() => {
-        navigator.clipboard.writeText(updateData.hash).then(value => {
+        navigator.clipboard.writeText(transaction.hash).then(value => {
           setOpenModal(false)
           toast.success("Transaction hash copied to clipboard")
         }).catch(reason => {
@@ -37,11 +39,11 @@ export default function ContextModal({
         Update transaction
       </div>
       <div onClick={() => {
-        setComponent(<Home transaction={updateData} />)
+        setPageTransaction(transaction)
+        setComponent(<Home transaction={transaction} />)
       }} className="py-5 px-2 rounded-lg hover:bg-gray-300 hover:cursor-pointer">
         View transaction details
-      </div>
-      
+      </div>      
     </div>
   );
 

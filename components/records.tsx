@@ -38,8 +38,10 @@ export type Transaction = {
 
 export default function Records({
   setComponent,
+  setPageTransaction
 }: {
   setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>;
+  setPageTransaction: React.Dispatch<React.SetStateAction<Transaction | undefined>>
 }) {
   const [dataLoaded, setDataLoaded] = React.useState(false);
   const [data, setData] = React.useState<Transaction[]>([]);
@@ -139,6 +141,7 @@ export default function Records({
           setOpenModal={setOpenContextModal}
           setComponent={setComponent}
           transaction={transaction}
+          setPageTransaction={setPageTransaction}
         />
       )}
       {transaction && openUpdateModal && (

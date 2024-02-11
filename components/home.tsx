@@ -4,6 +4,7 @@ import Footer from "@/components/footer/footer";
 import CoinChips from "@/components/sections/coin-chips";
 import InfoCard from "@/components/sections/info-card";
 import { Transaction } from "./records";
+import { useEffect, useLayoutEffect } from "react";
 
 export default function Home({ transaction }: { transaction: Transaction }) {
   return (

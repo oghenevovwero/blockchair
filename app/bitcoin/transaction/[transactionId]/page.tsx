@@ -2,14 +2,16 @@
 
 import Records, { Transaction } from "@/components/records";
 import { useParams, useSearchParams } from "next/navigation";
-import React, { useEffect, useState, Context } from "react";
+import React, { useEffect, useState, Context, useLayoutEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
 import NotFound from "../../../not-found";
+import Home from "@/components/home";
 
 type BlockChairProps = {};
 
 const BlockChair: React.FC<BlockChairProps> = () => {
+  const [transaction, setTransaction] = useState<Transaction>();
   const [component, setComponent] = useState(
     <div className="flex h-screen w-full items-center justify-center">
       <div role="status">
@@ -35,19 +37,27 @@ const BlockChair: React.FC<BlockChairProps> = () => {
   );
 
   useEffect(() => {
-    const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"));
-    getDoc(doc(firestore, "transactions", hashId))
-      .then((value) => {
-        if (!value.exists()) {
+    if (transaction) {
+      //console.log("is  " + window.location.host + "/bitcoin/transaction/" + transaction.hash);
+      //window.location.pathname = window.location.host + "/bitcoin/transaction/" + transaction.hash;
+      //setComponent(<Home transaction={transaction} />);
+    } else {
+      const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"));
+      getDoc(doc(firestore, "transactions", hashId))
+        .then((value) => {
+          if (!value.exists()) {
+            setComponent(<NotFound />);
+          } else {
+            setComponent(
+              <Records setComponent={setComponent} setPageTransaction={setTransaction} />
+            );
+          }
+        })
+        .catch((reason) => {
           setComponent(<NotFound />);
-        } else {
-          setComponent(<Records setComponent={setComponent} />);
-        }
-      })
-      .catch((reason) => {
-        setComponent(<NotFound />);
-      });
-  }, []);
+        });
+    }
+  }, [transaction]);
 
   return <div>{component}</div>;
 };
