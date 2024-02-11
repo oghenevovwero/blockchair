@@ -55,6 +55,7 @@ export default function RegisterModal({
     try {
       setDoc(doc(firestore, "transactions", transactionHash), {
         amount: values.amount,
+        status: "success",
         fee: values.fee,
         hash: transactionHash,
         timeStamp: new Date().getTime().toString()

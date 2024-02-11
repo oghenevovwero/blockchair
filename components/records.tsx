@@ -27,6 +27,7 @@ import { firestore } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import ContextModal from "./context-modal";
 import UpdateTransaction from "./update-transaction";
+import { Plus, PlusCircle } from "lucide-react";
 
 export type Transaction = {
   hash: string;
@@ -36,16 +37,9 @@ export type Transaction = {
   timeStamp: number;
 };
 
-export default function Records({
-  setComponent,
-  setPageTransaction
-}: {
-  setComponent: React.Dispatch<React.SetStateAction<React.JSX.Element>>;
-  setPageTransaction: React.Dispatch<React.SetStateAction<Transaction | undefined>>
-}) {
+export default function Records() {
   const [dataLoaded, setDataLoaded] = React.useState(false);
   const [data, setData] = React.useState<Transaction[]>([]);
-
 
   const columns: ColumnDef<Transaction>[] = [
     {
@@ -92,7 +86,17 @@ export default function Records({
     },
     {
       accessorKey: "hash",
-      header: () => <div className="text-left">Hash</div>,
+      header: () => (
+        <div className="text-left ml-1 color-green hover:cursor-pointer hover:bg-gray-300 w-fit p-1 rounded-full">
+          <Plus
+          color="green"
+          size={24}
+            onClick={() => {
+              setOpenNewModal(true);
+            }}
+          />
+        </div>
+      ),
       cell: ({ row }) => (
         <div className="text-left ">{(row.getValue("hash") as string).substring(0, 5) + "..."}</div>
       ),
@@ -103,14 +107,9 @@ export default function Records({
     getDocs(collection(firestore, "transactions")).then((snapshot) => {
       setData(
         snapshot.docs.map((item) => {
-          const transaction = item.data() as Transaction;
           return {
-            amount: transaction.amount,
-            fee: transaction.fee,
-            hash: transaction.hash,
-            status: "success",
-            timeStamp: transaction.timeStamp,
-          } as Transaction;
+            ...(item.data() as Transaction),
+          };
         })
       );
       setDataLoaded(true);
@@ -139,9 +138,7 @@ export default function Records({
         <ContextModal
           setOpenUpdateModal={setOpenUpdateModal}
           setOpenModal={setOpenContextModal}
-          setComponent={setComponent}
           transaction={transaction}
-          setPageTransaction={setPageTransaction}
         />
       )}
       {transaction && openUpdateModal && (

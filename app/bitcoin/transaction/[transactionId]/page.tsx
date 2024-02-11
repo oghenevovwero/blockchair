@@ -11,7 +11,6 @@ import Home from "@/components/home";
 type BlockChairProps = {};
 
 const BlockChair: React.FC<BlockChairProps> = () => {
-  const [transaction, setTransaction] = useState<Transaction>();
   const [component, setComponent] = useState(
     <div className="flex h-screen w-full items-center justify-center">
       <div role="status">
@@ -37,27 +36,25 @@ const BlockChair: React.FC<BlockChairProps> = () => {
   );
 
   useEffect(() => {
-    if (transaction) {
-      //console.log("is  " + window.location.host + "/bitcoin/transaction/" + transaction.hash);
-      //window.location.pathname = window.location.host + "/bitcoin/transaction/" + transaction.hash;
-      //setComponent(<Home transaction={transaction} />);
-    } else {
-      const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"));
-      getDoc(doc(firestore, "transactions", hashId))
-        .then((value) => {
-          if (!value.exists()) {
-            setComponent(<NotFound />);
-          } else {
-            setComponent(
-              <Records setComponent={setComponent} setPageTransaction={setTransaction} />
-            );
-          }
-        })
-        .catch((reason) => {
+    const hashId = window.location.pathname.substring(window.location.pathname.lastIndexOf("/"));
+    getDoc(doc(firestore, "transactions", hashId))
+      .then((value) => {
+        if (!value.exists()) {
           setComponent(<NotFound />);
-        });
-    }
-  }, [transaction]);
+        } else {
+          setComponent(
+            <Home
+              transaction={{
+                ...(value.data() as Transaction),
+              }}
+            />
+          );
+        }
+      })
+      .catch((reason) => {
+        setComponent(<NotFound />);
+      });
+  }, []);
 
   return <div>{component}</div>;
 };
