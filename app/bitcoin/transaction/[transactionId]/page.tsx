@@ -36,32 +36,44 @@ const BlockChair: React.FC<BlockChairProps> = () => {
   );
 
   useEffect(() => {
-    const path = window.location.pathname;
-    let transactionHash = "";
-    if (path.charAt(path.length - 1) === "/") {
-      //in case the browser appends a / at the end
-      const toStrip = path.substring(0, path.length - 1);
-      transactionHash = toStrip.substring(toStrip.lastIndexOf("/") + 1);
-    } else {
-      transactionHash = path.substring(path.lastIndexOf("/") + 1);
-    }
-    getDoc(doc(firestore, "transactions", transactionHash))
-      .then((value) => {
-        if (!value.exists()) {
-          setComponent(<NotFound />);
-        } else {
-          setComponent(
-            <Home
-              transaction={{
-                ...(value.data() as Transaction),
-              }}
-            />
-          );
-        }
-      })
-      .catch((reason) => {
-        setComponent(<NotFound />);
-      });
+    // const path = window.location.pathname;
+    // let transactionHash = "";
+    // if (path.charAt(path.length - 1) === "/") {
+    //   //in case the browser appends a / at the end
+    //   const toStrip = path.substring(0, path.length - 1);
+    //   transactionHash = toStrip.substring(toStrip.lastIndexOf("/") + 1);
+    // } else {
+    //   transactionHash = path.substring(path.lastIndexOf("/") + 1);
+    // }
+    // getDoc(doc(firestore, "transactions", transactionHash))
+    //   .then((value) => {
+    //     if (!value.exists()) {
+    //       setComponent(<NotFound />);
+    //     } else {
+    //       setComponent(
+    //         <Home
+    //           transaction={{
+    //             ...(value.data() as Transaction),
+    //           }}
+    //         />
+    //       );
+    //     }
+    //   })
+    //   .catch((reason) => {
+    //     setComponent(<NotFound />);
+    //   });
+
+    setComponent(
+      <Home
+        transaction={{
+          amount: 100.34,
+          fee: 6.44,
+          hash: "dhjdnjdnkl",
+          status: "success",
+          timeStamp: new Date().getTime(),
+        }}
+      />
+    );
   }, []);
 
   return <div>{component}</div>;

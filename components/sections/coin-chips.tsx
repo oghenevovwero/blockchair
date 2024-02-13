@@ -22,8 +22,10 @@ const CoinChips = () => {
         <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-[6px]">
           <Chip title="Get 7 BTC" icon="/flower.png" className="bg-[#F29913]" />
           <Chip title="Win 8.88 BTC" icon="/pen.png" className="bg-[#F13261]" />
-          <Chip title="70 Free Spins" icon="/kangaroo.png" className="bg-[#A542F0]" />
-          <Chip title="Claim 9.99 BTC" icon="/gift-box.png" className="bg-[#4ACA1E]" />
+          <Chip title="20% Cashback" icon="/kangaroo.png" className="bg-[#A542F0]" />
+          <div className="max-sm:hidden">
+            <Chip title="Claim 9.99 BTC" icon="/gift-box.png" className="bg-[#4ACA1E]" />
+          </div>
           <Chip title="200% Bonus" icon="/rocket.png" className="bg-[#FF0000]" />
         </div>
         <div className="flex justify-end">
@@ -47,9 +49,9 @@ type ChipProps = {
 const Chip: React.FC<ChipProps> = ({ title, icon, className = "" }) => {
   return (
     <div
-      className={`flex flex-row justify-around items-center px-5 py-[7px] rounded-full text-sm ${className}`}
+      className={`flex flex-row justify-around items-center px-5 py-[7px] rounded-full ${className}`}
     >
-      <div className="text-white text-xs min-[380px]:text-sm">{title}</div>
+      <div className="text-white text-xs md:text-sm">{title}</div>
       <Image src={icon} width={20} height={20} alt={`${title} coin`} />
       <svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path opacity="0.8" d="M4.76314 3L-9.53674e-07 5.75V0.25L4.76314 3Z" fill="#FFFFFF"></path>
