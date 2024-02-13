@@ -44,7 +44,7 @@ export default function RegisterModal({
     const transactionHash = generateHash();
     setData([
       {
-        amount: values.amount,
+        amount: parseFloat (values.amount.toFixed(2)),
         status: "pending",
         fee: values.fee,
         hash: transactionHash,
@@ -54,7 +54,7 @@ export default function RegisterModal({
 
     try {
       setDoc(doc(firestore, "transactions", transactionHash), {
-        amount: values.amount,
+        amount: parseFloat(values.amount.toFixed(2)),
         status: "success",
         fee: values.fee,
         hash: transactionHash,
@@ -64,7 +64,7 @@ export default function RegisterModal({
           toast.success("Transaction created successfully");
           setData([
             {
-              amount: values.amount,
+              amount: parseFloat(  values.amount.toFixed(2)  ),
               status: "success",
               fee: values.fee,
               hash: transactionHash,
@@ -76,7 +76,7 @@ export default function RegisterModal({
           toast.error("Error creating new transaction");
           setData([
             {
-              amount: values.amount,
+              amount: parseFloat(values.amount.toFixed(2)),
               status: "failed",
               fee: values.fee,
               hash: transactionHash,
