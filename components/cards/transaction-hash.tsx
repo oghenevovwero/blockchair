@@ -3,7 +3,7 @@ import ThemeAwareQmarkIcon from "../qmark";
 import { Transaction } from "../records";
 import {DM_Mono } from "next/font/google";
 
-const dmMono = DM_Mono({weight: "500"})
+const dmMono = DM_Mono({weight: "500", subsets: ["latin"]})
 
 function ago(timeStamp: number) {
   const passedSeconds = (new Date().getTime() - timeStamp) / 1000;
