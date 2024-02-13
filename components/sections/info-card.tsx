@@ -10,30 +10,63 @@ import PrivacyControl from "../privacy-control";
 import { Transaction } from "../records";
 import PaddedWrapper from "../wrappers/padded";
 
-function InfoCard({transaction}:{transaction: Transaction}) {
+function InfoCard({ transaction }: { transaction: Transaction }) {
   return (
-    <PaddedWrapper className="grid grid-cols-1 lg:grid-cols-4 gap-5">
-      <div className="flex flex-col">
-        <TransactionHash transaction={transaction} />
+    <PaddedWrapper className="grid grid-cols-1 lg:grid-cols-4 lg:gap-5">
+      <div className="col-span-3 grid grid-cols-1 lg:grid-cols-3 lg:gap-5">
+        <div className="max-lg:mb-5">
+          <TransactionHash transaction={transaction} />
+        </div>
+        <div className="col-span-2">
+          <div className="mb-1">
+            <TransactionStatus transaction={transaction} />
+          </div>
+          <div
+            className="
+          grid 
+          grid-cols-1 
+          md:grid-cols-2 
+          gap-2 
+          rounded-lg 
+          dark:border-[#262626] 
+        border-white
+          dark:shadow-none 
+          shadow-lg 
+          shadow-[#B0BDC7]
+          bg-[#EFF2F9]
+             dark:bg-[#0E0E0E]
+          border p-2
+          max-lg:hidden
+          "
+          >
+            <Senders />
+            <Recipients />
+          </div>
+          <div className="lg:hidden">
+            <Senders />
+            <div className="mt-1">
+              <Recipients />
+            </div>
+          </div>
+        </div>
         <PrivacyControl />
       </div>
-      <div className="lg:col-span-2">
-        <div className="mb-3">
-          <TransactionStatus />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 lg:gap-[10px]">
+        <div className="max-lg:mb-5">
+          <BtcPrice />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 rounded-lg dark:border-[#262626] border-white dark:shadow-none shadow-lg shadow-[#B0BDC7] bg-[#EFF2F9] dark:bg-[#0E0E0E] border p-2">
-          <Senders />
-          <Recipients />
+        <div className="max-lg:mb-5">
+          <BlockchairAwesome />
         </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-2">
-        <BtcPrice />
-        <BlockchairAwesome />
-        <WatchOnly />
-        <AltExplorers />
+        <div className="max-lg:mb-5">
+          <WatchOnly />
+        </div>
+        <div className="max-lg:mb-5">
+          <AltExplorers />
+        </div>
       </div>
     </PaddedWrapper>
   );
-};
+}
 
 export default InfoCard;

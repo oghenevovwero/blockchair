@@ -7,7 +7,9 @@ type NewsCardsProps = {};
 const NewsCards: React.FC<NewsCardsProps> = () => {
   return (
     <PaddedWrapper>
-      <div className="text-2xl text-black dark:text-white font-bold">Blockchair Crypto News</div>
+      <div className="text-2xl text-black dark:text-white font-bold mb-10 ml-5">
+        Blockchair Crypto News
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <CryptoNews
           author="en.coin-turk.com"
@@ -28,13 +30,20 @@ const NewsCards: React.FC<NewsCardsProps> = () => {
           body="Robert goodman endorses Bitcoin as a defense against wealth theft. He criticizes Powell, Yellow, an... "
         />
       </div>
-      <div className="flex mt-16 text-lg md:text-xl font-bold justify-between items-center text-[#2170FF]">
-        <div className="flex flex-col sm:flex-row justify-center gap-2 items-center">
+      <div className="flex flex-col lg:flex-row mt-16 gap-5 text-xl font-bold justify-between items-center text-[#2170FF]">
+        <div className="flex justify-center gap-2 items-center">
           <div>More news</div>
-          <Image className="max-sm:mb-3" width={18} height={18} alt="More news" src="/forward.svg" />
+          <div>
+            <Image
+              width={18}
+              height={18}
+              alt="More news"
+              src="/forward.svg"
+            />
+          </div>
         </div>
-        <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-2">
-          <Image height={30} width={30} alt="telegram" src="/telegram-blue.svg" />
+        <div className="flex lg:flex-row justify-center items-center gap-2">
+          <Image height={35} width={35} alt="telegram" src="/telegram-blue.svg" />
           <div>Subscribe to telegram</div>
         </div>
       </div>
