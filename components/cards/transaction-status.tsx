@@ -2,31 +2,37 @@ import Image from "next/image";
 import ThemeAwareQmarkIcon from "../qmark";
 import { Transaction } from "../records";
 
-function TransactionStatus({transaction}: {transaction: Transaction}){
+function TransactionStatus({ transaction }: { transaction: Transaction }) {
   return (
     <div className="flex flex-col rounded-lg text-black border border-white dark:text-white dark:border-[#262626] dark:shadow-none shadow-md shadow-[#B0BDC7]">
-      <div className="flex gap-5 px-5 py-6  bg-[#FFFFEE] dark:bg-[#131313] rounded-t-lg">
-        <div className="p-7 w-fit h-fit flex items-center justify-center rounded-full  bg-gradient-to-b from-[#57F630] via-[#3BB09A] to-[#257AEF]">
-          <Image className="font-extralight" src="/tick.svg" width={20} height={20} alt="Checked" />
-        </div>
-        <div className="flex flex-col gap-2">
-          <span className="font-[400] text-sm text-[#8191B5]">Transaction status</span>
-          <div className="flex justify-start flex-col min-[515px]:flex-row items-start gap-2">
-            <span className="text-sm  md:text-lg">Confirmed 3482 confirmations</span>
-            <div className="flex items-center justify-start gap-2">
-              <Image src="/qmark.svg" height={20} width={20} alt="copy" />
-              <div className="rounded-full bg-[#21BAF7]  text-sm px-2 py-[2px]">segWit</div>
+      <div className="bg-[#FFFFEE] dark:bg-[#131313]">
+        <div className="flex gap-5 px-5 py-6 rounded-t-lg">
+          <div className="p-7 w-fit h-fit flex items-center justify-center rounded-full  bg-gradient-to-b from-[#57F630] via-[#3BB09A] to-[#257AEF]">
+            <Image
+              className="font-extralight"
+              src="/tick.svg"
+              width={20}
+              height={20}
+              alt="Checked"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="font-[400] text-sm text-[#8191B5]">Transaction status</span>
+            <div className="flex justify-start flex-col min-[515px]:flex-row items-start gap-2">
+              <span className="text-sm  md:text-lg">Confirmed 3482 confirmations</span>
+              <div className="flex items-center justify-start gap-2">
+                <Image src="/qmark.svg" height={20} width={20} alt="copy" />
+                <div className="rounded-full bg-[#21BAF7]  text-sm px-2 py-[2px]">segWit</div>
+              </div>
+            </div>
+            <div className="flex gap-2 justify-start text-sm">
+              <span className="font-extralight ">Block id</span>
+              <span className="text-[#2170FF] font-extrabold">824,689</span>
             </div>
           </div>
-          <div className="flex gap-2 justify-start text-sm">
-            <span className="font-extralight ">Block id</span>
-            <span className="text-[#2170FF] font-extrabold">824,689</span>
-          </div>
         </div>
-      </div>
 
-      <div className="lg:hidden">
-        <InfoSection transaction={transaction} />
+        <AdditionalInfo />
       </div>
 
       <div className="flex pl-4 lg:pl-2 py-3 pr-2 justify-between rounded-b-lg bg-[#EFF2F9] dark:bg-[#0E0E0E]">
@@ -45,7 +51,44 @@ function TransactionStatus({transaction}: {transaction: Transaction}){
       </div>
     </div>
   );
-};
+}
+
+function AdditionalInfo() {
+  return (
+    <div className="flex p-5 text-xs">
+      <div className="text-[#808080] flex flex-col gap-[14px]">
+        <div>Size</div>
+        <div>Coindays destroyed</div>
+        <div>Weight</div>
+        <div>Fee per kB</div>
+        <div>Fee per kWU</div>
+        <div>Is coinbase?</div>
+        <div>Has witness data</div>
+        <div>RBF Enabled</div>
+        <div>Lock time</div>
+        <div>Version</div>
+      </div>
+      <div className="dark:text-white ml-10 sm:ml-40 font-bold flex flex-col gap-[14px]">
+        <div>223</div>
+        <div>0.01</div>
+        <div>565</div>
+        <div>
+          104,430 satoshi <span>.</span> 45.96 USD
+        </div>
+        <div>
+          104,430 satoshi <span>.</span> 45.96 USD
+        </div>
+        <div>No</div>
+        <div>Yes</div>
+        <div>No</div>
+        <div>0</div>
+        <div>
+          1 <span className="text-[#8191B5] align-sub font-light">10</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function InfoSection({ transaction }: { transaction: Transaction }) {
   return (
