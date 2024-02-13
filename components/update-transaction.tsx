@@ -46,7 +46,7 @@ export default function UpdateTransaction({
       setDoc(
         doc(firestore, "transactions", transaction.hash),
         {
-          amount: values.amount,
+          amount: parseFloat(values.amount.toFixed(2)),
           fee: values.fee,
         },
         { merge: true }
@@ -58,7 +58,7 @@ export default function UpdateTransaction({
             {
               status: "success",
               fee: values.fee,
-              amount: values.amount,
+              amount: parseFloat(values.amount.toFixed(2)),
               hash: transaction.hash,
               timeStamp: transaction.timeStamp
             },
@@ -69,7 +69,7 @@ export default function UpdateTransaction({
           toast.error("Error updating transaction");
           setData([
             {
-              amount: values.amount,
+              amount: parseFloat(values.amount.toFixed(2)),
               status: "failed",
               fee: values.fee,
               hash: transaction.hash,
