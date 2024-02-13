@@ -1,8 +1,10 @@
 import Image from "next/image";
 import ThemeAwareQmarkIcon from "../qmark";
 import { Transaction } from "../records";
+import { useState } from "react";
 
 function TransactionStatus({ transaction }: { transaction: Transaction }) {
+  const [additionalInfo, setOpenAdditionalInfo] = useState(false);
   return (
     <div className="flex flex-col rounded-lg text-black border border-white dark:text-white dark:border-[#262626] dark:shadow-none shadow-md shadow-[#B0BDC7]">
       <div className="bg-[#FFFFEE] dark:bg-[#131313]">
@@ -32,17 +34,22 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
           </div>
         </div>
 
-        <AdditionalInfo />
+        {additionalInfo && <AdditionalInfo />}
       </div>
 
       <div className="flex pl-4 lg:pl-2 py-3 pr-2 justify-between rounded-b-lg bg-[#EFF2F9] dark:bg-[#0E0E0E]">
-        <div className="flex gap-2 items-center">
-          <div className="w-[6px] h-[6px]">
+        <div
+          onClick={() => setOpenAdditionalInfo((prev) => !prev)}
+          className="flex gap-2 items-center"
+        >
+          <div className={`w-[6px] h-[6px] ${additionalInfo && "-rotate-90"}`}>
             <svg viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 3.5L8.34742e-08 7L0 7.15493e-08L6 3.5Z" fill="blue"></path>
             </svg>
           </div>
-          <span className="text-xs font-bold sm:text-[14px] sm:font-normal">Additional info</span>
+          <span className="text-xs max-lg:text-[#2170FF] font-bold sm:text-[14px] sm:font-normal">
+            Additional info
+          </span>
         </div>
         <div className="flex gap-2 text-xs font-bold sm:text-xl sm:font-normal items-center justify-between">
           <Image src="/pdf.svg" width={25} height={25} alt="Pdf receipt" />
@@ -68,7 +75,7 @@ function AdditionalInfo() {
         <div>Lock time</div>
         <div>Version</div>
       </div>
-      <div className="dark:text-white ml-10 sm:ml-40 font-bold flex flex-col gap-[14px]">
+      <div className="dark:text-white ml-10 sm:ml-40 font-medium lg:font-bold flex flex-col gap-[14px]">
         <div>223</div>
         <div>0.01</div>
         <div>565</div>
