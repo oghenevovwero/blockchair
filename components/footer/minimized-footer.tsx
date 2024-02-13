@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const MinimizedFooter = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-3 pb-28 pt-8 text-white">
+    <div className="flex flex-col justify-center items-center gap-3 pb-28 pt-8 dark:text-white">
       <div>About Blockchair</div>
       <div>FAQ</div>
       <div>Changelog</div>
