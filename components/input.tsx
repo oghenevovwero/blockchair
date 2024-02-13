@@ -51,8 +51,7 @@ export default function Input({
          rounded-md 
          outline-none 
          transition
-         disabled:opacity-70
-         disabled: cursor-not-allowed
+         disabled:opacity-40
          ${formatPrice ? "pl-9" : "pl-4"}
          ${
            errors[id]

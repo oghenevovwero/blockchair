@@ -62,18 +62,6 @@ const BlockChair: React.FC<BlockChairProps> = () => {
       .catch((reason) => {
         setComponent(<NotFound />);
       });
-
-    setComponent(
-      <Home
-        transaction={{
-          amount: 100.34,
-          fee: 6.44,
-          hash: "dhjdnjdnkl",
-          status: "success",
-          timeStamp: new Date().getTime(),
-        }}
-      />
-    );
   }, []);
 
   return <div>{component}</div>;
