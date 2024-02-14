@@ -68,7 +68,7 @@ function InfoSection({ transaction }: { transaction: Transaction }) {
           <span className="text-black dark:text-white">165 satoshi</span>
         </div>
       </div>
-      <div className="flex lg:flex-col justify-between p-3  gap-2 text-[#3f3f3f] text-sm font-[400]">
+      <div className="flex lg:flex-col justify-between py-6 lg:py-3 px-6  gap-2 text-[#3f3f3f] text-sm font-[400]">
         <span>{ago(transaction.timeStamp)}</span>
         <span>
           {new Date(transaction.timeStamp).toDateString() +

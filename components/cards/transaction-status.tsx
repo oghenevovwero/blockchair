@@ -7,8 +7,8 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
   const [additionalInfo, setOpenAdditionalInfo] = useState(false);
   return (
     <div className="flex flex-col rounded-lg text-black border border-white dark:text-white dark:border-[#262626] dark:shadow-none shadow-md shadow-[#B0BDC7]">
-      <div className="bg-[#FFFFEE] dark:bg-[#131313]">
-        <div className="flex gap-5 px-5 py-6 rounded-t-lg">
+      <div className="bg-[#FFFFFF] dark:bg-[#131313] rounded-t-lg">
+        <div className="flex gap-5 px-5 py-4 md:py-6 rounded-t-lg">
           <div className="p-7 w-fit h-fit flex items-center justify-center rounded-full  bg-gradient-to-b from-[#57F630] via-[#3BB09A] to-[#257AEF]">
             <Image
               className="font-extralight"
@@ -18,13 +18,14 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
               alt="Checked"
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1 md:gap-2">
             <span className="font-[400] text-sm text-[#8191B5]">Transaction status</span>
-            <div className="flex justify-start flex-col min-[515px]:flex-row items-start gap-2">
-              <span className="text-sm  md:text-lg">Confirmed 3482 confirmations</span>
-              <div className="flex items-center justify-start gap-2">
-                <Image src="/qmark.svg" height={20} width={20} alt="copy" />
-                <div className="rounded-full bg-[#21BAF7]  text-sm px-2 py-[2px]">segWit</div>
+            <div className="font-semibold">Confirmed</div>
+            <div className="flex justify-start items-center gap-1">
+              <span className="text-xs  md:text-lg"><span className="text-sm">5711</span> confirmations</span>
+              <Image src="/qmark.svg" height={20} width={20} alt="copy" />
+              <div className="rounded-full font-semibold bg-[#21BAF7]  text-xs md:text-sm px-1 md:px-2 py-[1px] md:py-[2px]">
+                segWit
               </div>
             </div>
             <div className="flex gap-2 justify-start text-sm">
@@ -34,10 +35,17 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
           </div>
         </div>
 
+        <div className="lg:hidden bg-[#EFF2F9] dark:bg-[#131313]">
+          <InfoSection transaction={transaction} />
+        </div>
+
         {additionalInfo && <AdditionalInfo />}
       </div>
 
-      <div className="flex pl-4 lg:pl-2 py-3 pr-2 justify-between rounded-b-lg bg-[#EFF2F9] dark:bg-[#0E0E0E]">
+      <div
+        className="flex pl-4 lg:pl-2 py-3 pr-2 justify-between rounded-b-lg
+       bg-[#EFF2F9] dark:bg-[#0E0E0E]"
+      >
         <div
           onClick={() => setOpenAdditionalInfo((prev) => !prev)}
           className="flex gap-2 items-center"
@@ -51,7 +59,10 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
             Additional info
           </span>
         </div>
-        <div className="flex gap-2 text-xs font-bold sm:text-xl sm:font-normal items-center justify-between">
+        <div
+          className="flex gap-2 text-xs font-bold sm:text-xl sm:font-normal 
+        items-center justify-between"
+        >
           <Image src="/pdf.svg" width={25} height={25} alt="Pdf receipt" />
           <span>Transaction receipt</span>
         </div>
@@ -99,7 +110,7 @@ function AdditionalInfo() {
 
 function InfoSection({ transaction }: { transaction: Transaction }) {
   return (
-    <div className="flex flex-col h-full justify-center rounded-b-lg pl-4 mb-1">
+    <div className="flex flex-col h-full justify-center rounded-b-lg pl-2">
       <div className="flex flex-col p-3  gap-2">
         <div className="flex gap-1 bg">
           <span className="font-[400] text-sm text-[#3f3f3f]">Amount transacted</span>

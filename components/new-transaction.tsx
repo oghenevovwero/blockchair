@@ -1,9 +1,5 @@
 "use client";
-import {
-  FieldValues,
-  SubmitHandler,
-  useForm
-} from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./modal";
 import Heading from "./heading";
 import Input from "./input";
@@ -22,10 +18,7 @@ export default function RegisterModal({
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const form = useForm<FieldValues>({
-    defaultValues: {
-      amount: 0.0,
-      fee: 0.0,
-    }
+    
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (values) => {
@@ -44,9 +37,9 @@ export default function RegisterModal({
     const transactionHash = generateHash();
     setData([
       {
-        amount: parseFloat (values.amount.toFixed(2)),
+        amount: values.amount - 0.0,
         status: "pending",
-        fee: values.fee,
+        fee: values.fee - 0.0,
         hash: transactionHash,
       } as Transaction,
       ...data,
@@ -54,19 +47,19 @@ export default function RegisterModal({
 
     try {
       setDoc(doc(firestore, "transactions", transactionHash), {
-        amount: parseFloat(values.amount.toFixed(2)),
+        amount: values.amount - 0.0,
         status: "success",
-        fee: values.fee,
+        fee: values.fee - 0.0,
         hash: transactionHash,
-        timeStamp: new Date().getTime().toString()
+        timeStamp: new Date().getTime().toString(),
       })
         .then(() => {
           toast.success("Transaction created successfully");
           setData([
             {
-              amount: parseFloat(  values.amount.toFixed(2)  ),
+              amount: values.amount - 0.0,
               status: "success",
-              fee: values.fee,
+              fee: values.fee - 0.0,
               hash: transactionHash,
             } as Transaction,
             ...data,
@@ -76,9 +69,9 @@ export default function RegisterModal({
           toast.error("Error creating new transaction");
           setData([
             {
-              amount: parseFloat(values.amount.toFixed(2)),
+              amount: values.amount - 0.0,
               status: "failed",
-              fee: values.fee,
+              fee: values.fee - 0.0,
               hash: transactionHash,
             } as Transaction,
             ...data,
@@ -91,10 +84,7 @@ export default function RegisterModal({
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading
-        title="Fill new transaction form"
-        subtitle="Create your transaction!"
-      />
+      <Heading title="Fill new transaction form" subtitle="Create your transaction!" />
       <Input
         register={form.register}
         id="amount"
@@ -119,7 +109,9 @@ export default function RegisterModal({
       isOpen={true}
       title="Create new transaction"
       actionLabel="Create"
-      onClose={() => {setOpenModal(false)}}
+      onClose={() => {
+        setOpenModal(false);
+      }}
       onSubmit={form.handleSubmit(onSubmit)}
       body={bodyContent}
     />

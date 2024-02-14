@@ -1,10 +1,6 @@
 "use client";
 import { useCallback, useState } from "react";
-import {
-  FieldValues,
-  SubmitHandler,
-  useForm
-} from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./modal";
 import Heading from "./heading";
 import Input from "./input";
@@ -17,7 +13,7 @@ export default function UpdateTransaction({
   setOpenModal,
   setData,
   data,
-  transaction
+  transaction,
 }: {
   data: Transaction[];
   transaction: Transaction;
@@ -26,9 +22,9 @@ export default function UpdateTransaction({
 }) {
   const form = useForm<FieldValues>({
     defaultValues: {
-      amount: 0.0,
-      fee: 0.0,
-    }
+      amount: transaction.amount,
+      fee: transaction.fee,
+    },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (values) => {
@@ -38,7 +34,12 @@ export default function UpdateTransaction({
     form.reset();
     setData([
       ...data.slice(0, indexOfTransaction),
-      { ...transaction, status: "pending" },
+      {
+        ...transaction,
+        status: "pending",
+        amount: values.amount - 0.0,
+        fee: values.fee - 0.0,
+      },
       ...data.slice(indexOfTransaction + 1),
     ]);
 
@@ -46,8 +47,8 @@ export default function UpdateTransaction({
       setDoc(
         doc(firestore, "transactions", transaction.hash),
         {
-          amount: parseFloat(values.amount.toFixed(2)),
-          fee: values.fee,
+          amount: values.amount - 0.0,
+          fee: values.fee - 0.0,
         },
         { merge: true }
       )
@@ -57,10 +58,10 @@ export default function UpdateTransaction({
             ...data.slice(0, indexOfTransaction),
             {
               status: "success",
-              fee: values.fee,
-              amount: parseFloat(values.amount.toFixed(2)),
+              fee: values.fee - 0.0,
+              amount: values.amount - 0.0,
               hash: transaction.hash,
-              timeStamp: transaction.timeStamp
+              timeStamp: transaction.timeStamp,
             },
             ...data.slice(indexOfTransaction + 1),
           ]);
@@ -69,9 +70,9 @@ export default function UpdateTransaction({
           toast.error("Error updating transaction");
           setData([
             {
-              amount: parseFloat(values.amount.toFixed(2)),
+              amount: values.amount - 0.0,
               status: "failed",
-              fee: values.fee,
+              fee: values.fee - 0.0,
               hash: transaction.hash,
             } as Transaction,
             ...data,
@@ -84,10 +85,7 @@ export default function UpdateTransaction({
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading
-        title="Fill update transaction form"
-        subtitle="Update your transaction!"
-      />
+      <Heading title="Fill update transaction form" subtitle="Update your transaction!" />
       <Input
         register={form.register}
         id="amount"
@@ -104,6 +102,11 @@ export default function UpdateTransaction({
         errors={form.formState.errors}
         required
       />
+      {/* <div className="flex justify-around items-center gap-2">
+        <Button label="Confirmed" onClick={() => {}} outline small  />
+        <Button label="Pending" onClick={() => {}} outline small  />
+        <Button label="Failed" onClick={() => {}} outline small  />
+      </div> */}
     </div>
   );
 
@@ -112,9 +115,52 @@ export default function UpdateTransaction({
       isOpen={true}
       title="Update transaction"
       actionLabel="Update"
-      onClose={() => {setOpenModal(false)}}
+      onClose={() => {
+        setOpenModal(false);
+      }}
       onSubmit={form.handleSubmit(onSubmit)}
       body={bodyContent}
     />
+  );
+}
+function Button({
+  label,
+  onClick,
+  disabled,
+  outline,
+  small,
+  className = ""
+}: {
+  label: string;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  outline?: boolean;
+  small?: boolean;
+  className?: string
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+    relative
+    disabled:opacity-70
+    disabled:cursor-not-allowed
+    rounded-lg
+    hover:opacity-80
+    transition
+    w-full
+    ${outline ? "bg-white" : "bg-rose-500"}
+    ${outline ? "border-black" : "border-rose-500"}
+    ${outline ? "text-black" : "text-white"}
+    ${small ? "py-1" : "py-3"}
+    ${small ? "text-sm" : "text-md"}
+    ${small ? "font-light" : "font-semibold"}
+    ${small ? "border-[1px]" : "border-2"}
+    ${className}
+  `}
+    >
+      {label}
+    </button>
   );
 }
