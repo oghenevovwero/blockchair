@@ -76,9 +76,9 @@ export default function Records() {
       accessorKey: "status",
       header: () => <div className="text-center">Status</div>,
       cell: ({ row }) =>
-        row.getValue("status") === "pending" ? (
+        row.getValue("status") === "Pending" ? (
           <div className="bg-yellow-300 rounded-full w-[6px] sm:w-[10px] h-[6px] sm:h-[10px] mx-auto"></div>
-        ) : row.getValue("status") === "success" ? (
+        ) : row.getValue("status") === "Confirmed" ? (
           <div className="bg-green-500 rounded-full w-[6px] sm:w-[10px] h-[6px] sm:h-[10px] mx-auto"></div>
         ) : (
           <div className="bg-red-500 rounded-full w-[6px] sm:w-[10px] h-[6px] sm:h-[10px] mx-auto"></div>

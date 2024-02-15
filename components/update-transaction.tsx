@@ -20,6 +20,7 @@ export default function UpdateTransaction({
   setData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  console.log(transaction.status)
   const [transactionState, setTransactionState] = useState<"Confirmed" | "Pending" | "Failed">(
     transaction.status
   );
@@ -27,7 +28,6 @@ export default function UpdateTransaction({
     defaultValues: {
       amount: transaction.amount,
       fee: transaction.fee,
-      transactionState: transaction.status,
     },
   });
 
