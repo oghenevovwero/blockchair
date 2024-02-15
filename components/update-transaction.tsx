@@ -20,10 +20,14 @@ export default function UpdateTransaction({
   setData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [transactionState, setTransactionState] = useState<"Confirmed" | "Pending" | "Failed">(
+    transaction.status
+  );
   const form = useForm<FieldValues>({
     defaultValues: {
       amount: transaction.amount,
       fee: transaction.fee,
+      transactionState: transaction.status,
     },
   });
 
@@ -36,7 +40,7 @@ export default function UpdateTransaction({
       ...data.slice(0, indexOfTransaction),
       {
         ...transaction,
-        status: "pending",
+        status: "Pending",
         amount: values.amount - 0.0,
         fee: values.fee - 0.0,
       },
@@ -57,7 +61,7 @@ export default function UpdateTransaction({
           setData([
             ...data.slice(0, indexOfTransaction),
             {
-              status: "success",
+              status: transactionState,
               fee: values.fee - 0.0,
               amount: values.amount - 0.0,
               hash: transaction.hash,
@@ -71,7 +75,7 @@ export default function UpdateTransaction({
           setData([
             {
               amount: values.amount - 0.0,
-              status: "failed",
+              status: "Failed",
               fee: values.fee - 0.0,
               hash: transaction.hash,
             } as Transaction,
@@ -102,11 +106,34 @@ export default function UpdateTransaction({
         errors={form.formState.errors}
         required
       />
-      {/* <div className="flex justify-around items-center gap-2">
-        <Button label="Confirmed" onClick={() => {}} outline small  />
-        <Button label="Pending" onClick={() => {}} outline small  />
-        <Button label="Failed" onClick={() => {}} outline small  />
-      </div> */}
+      <div className="flex items-center justify-around p-2">
+        <button
+          onClick={() => setTransactionState("Confirmed")}
+          className={`border border-green-500 p-2 rounded-lg ${
+            transactionState === "Confirmed"
+              ? "bg-green-500 text-white font-extralight text-sm"
+              : ""
+          }`}
+        >
+          Confirmed
+        </button>
+        <button
+          onClick={() => setTransactionState("Pending")}
+          className={`border border-orange-500 p-2 rounded-lg ${
+            transactionState === "Pending" ? "bg-orange-500 text-white font-extralight text-sm" : ""
+          }`}
+        >
+          Pending
+        </button>
+        <button
+          onClick={() => setTransactionState("Failed")}
+          className={`border border-red-500 p-2 rounded-lg ${
+            transactionState === "Failed" ? "bg-red-500 text-white font-extralight text-sm" : ""
+          }`}
+        >
+          Failed
+        </button>
+      </div>
     </div>
   );
 
@@ -129,14 +156,14 @@ function Button({
   disabled,
   outline,
   small,
-  className = ""
+  className = "",
 }: {
   label: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
-  className?: string
+  className?: string;
 }) {
   return (
     <button

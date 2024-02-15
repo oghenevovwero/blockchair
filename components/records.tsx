@@ -32,7 +32,7 @@ import { Plus, PlusCircle } from "lucide-react";
 export type Transaction = {
   hash: string;
   amount: number;
-  status: "pending" | "success" | "failed";
+  status: "Pending" | "Confirmed" | "Failed";
   fee: number;
   timeStamp: number;
 };

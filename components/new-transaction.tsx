@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { Transaction } from "./records";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
+import { useState } from "react";
 
 export default function RegisterModal({
   setOpenModal,
@@ -17,9 +18,10 @@ export default function RegisterModal({
   setData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const form = useForm<FieldValues>({
-    
-  });
+  const [transactionState, setTransactionState] = useState<"Confirmed" | "Pending" | "Failed">(
+    "Confirmed"
+  );
+  const form = useForm<FieldValues>({});
 
   const onSubmit: SubmitHandler<FieldValues> = (values) => {
     setOpenModal(false);
@@ -38,7 +40,7 @@ export default function RegisterModal({
     setData([
       {
         amount: values.amount - 0.0,
-        status: "pending",
+        status: "Pending",
         fee: values.fee - 0.0,
         hash: transactionHash,
       } as Transaction,
@@ -48,7 +50,7 @@ export default function RegisterModal({
     try {
       setDoc(doc(firestore, "transactions", transactionHash), {
         amount: values.amount - 0.0,
-        status: "success",
+        status: transactionState,
         fee: values.fee - 0.0,
         hash: transactionHash,
         timeStamp: new Date().getTime().toString(),
@@ -58,7 +60,7 @@ export default function RegisterModal({
           setData([
             {
               amount: values.amount - 0.0,
-              status: "success",
+              status: "Confirmed",
               fee: values.fee - 0.0,
               hash: transactionHash,
             } as Transaction,
@@ -70,7 +72,7 @@ export default function RegisterModal({
           setData([
             {
               amount: values.amount - 0.0,
-              status: "failed",
+              status: "Failed",
               fee: values.fee - 0.0,
               hash: transactionHash,
             } as Transaction,
@@ -101,6 +103,30 @@ export default function RegisterModal({
         errors={form.formState.errors}
         required
       />
+      <div className="flex items-center justify-around gap-3">
+        <button
+          onClick={() => setTransactionState("Confirmed")}
+          className={`border border-green-500 p-2 rounded-lg ${
+            transactionState === "Confirmed" ? "bg-green-500 text-white font-extralight text-sm" : ""
+          }`}
+        >
+          Confirmed
+        </button>
+        <button
+          onClick={() => setTransactionState("Pending")}
+          className={`border border-orange-500 p-2 rounded-lg ${
+            transactionState === "Pending" ? "bg-orange-500 text-white font-extralight text-sm" : ""
+          }`}
+        >
+          Pending
+        </button>
+        <button
+          onClick={() => setTransactionState("Failed")}
+          className={`border border-red-500 p-2 rounded-lg ${transactionState === "Failed" ? "bg-red-500 text-white font-extralight text-sm" : ""}`}
+        >
+          Failed
+        </button>
+      </div>
     </div>
   );
 

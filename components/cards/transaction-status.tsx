@@ -20,7 +20,7 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
           </div>
           <div className="flex flex-col gap-1 md:gap-2">
             <span className="font-[400] text-sm text-[#8191B5]">Transaction status</span>
-            <div className="font-semibold">Confirmed</div>
+            <div className="font-semibold">{transaction.status}</div>
             <div className="flex justify-start items-center gap-1">
               <span className="text-xs  md:text-lg"><span className="text-sm">5711</span> confirmations</span>
               <Image src="/qmark.svg" height={20} width={20} alt="copy" />
