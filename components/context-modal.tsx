@@ -20,7 +20,7 @@ export default function ContextModal({
         className="py-5 px-2 rounded-lg hover:bg-gray-300 hover:cursor-pointer"
         onClick={() => {
           navigator.clipboard
-            .writeText(transaction.hash)
+            .writeText(window.location.href)
             .then((value) => {
               setOpenModal(false);
               toast.success("Transaction hash copied to clipboard");
