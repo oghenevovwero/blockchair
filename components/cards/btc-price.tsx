@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ThemeAwareChart from "../chart";
+import React from 'react';
 
 type BtcPriceProps = {};
 
