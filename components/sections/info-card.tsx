@@ -10,7 +10,7 @@ import PrivacyControl from "../privacy-control";
 import { Transaction } from "../records";
 import PaddedWrapper from "../wrappers/padded";
 
-function InfoCard({ transaction }: { transaction: Transaction }) {
+function InfoCard({ transaction}: {transaction: Transaction }) {
   return (
     <PaddedWrapper className="grid grid-cols-1 lg:grid-cols-4 lg:gap-5">
       <div className="col-span-3 grid grid-cols-1 lg:grid-cols-3 lg:gap-5">

@@ -7,9 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase";
 import Home from "@/components/home";
 
-type BlockChairProps = {};
-
-const BlockChair: React.FC<BlockChairProps> = () => {
+function BlockChair() {
   const [component, setComponent] = useState(
     <div className="flex h-screen w-full items-center justify-center">
       <div role="status">
@@ -58,7 +56,7 @@ const BlockChair: React.FC<BlockChairProps> = () => {
                   <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
                     Sorry, the document was not found
                   </p>
-                  <p className="mt-4 text-[10px] text-gray-500 dark:text-gray-400">
+                  <p className="mt-4 text-[18px] font-thin text-gray-500 dark:text-gray-400">
                     This could be due to a faulty internet connection
                   </p>
                 </div>
@@ -87,7 +85,7 @@ const BlockChair: React.FC<BlockChairProps> = () => {
                 <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
                   Sorry, the document was not found
                 </p>
-                <p className="mt-4 text-[10px] text-gray-500 dark:text-gray-400">
+                <p className="mt-4 text-[18px] font-thin text-gray-500 dark:text-gray-400">
                   This could be due to a faulty internet connection
                 </p>
               </div>
@@ -98,6 +96,6 @@ const BlockChair: React.FC<BlockChairProps> = () => {
   }, []);
 
   return <div>{component}</div>;
-};
+}
 
 export default BlockChair;

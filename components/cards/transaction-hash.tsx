@@ -40,7 +40,7 @@ const TransactionHash = ({ transaction }: { transaction: Transaction }) => {
 
 function InfoSection({ transaction }: { transaction: Transaction }) {
   return (
-    <div className="flex flex-col h-full justify-center rounded-b-lg">
+    <div className="flex flex-col h-full justify-center rounded-b-lg lg:py-[15px]">
       <div className="max-lg:hidden">
         <div className="flex flex-col p-3  gap-2">
           <div className="flex gap-1 bg">
@@ -68,7 +68,7 @@ function InfoSection({ transaction }: { transaction: Transaction }) {
           <span className="text-black dark:text-white">165 satoshi</span>
         </div>
       </div>
-      <div className="flex lg:flex-col justify-between py-6 lg:py-3 px-6  gap-2 text-[#3f3f3f] text-sm font-[400]">
+      <div className="flex lg:flex-col justify-between py-6 lg:py-3 px-6 lg:px-3  gap-2 text-[#3f3f3f] text-sm font-[400]">
         <span>{ago(transaction.timeStamp)}</span>
         <span>
           {new Date(transaction.timeStamp).toDateString() +

@@ -2,23 +2,48 @@ import Image from "next/image";
 import ThemeAwareChart from "../chart";
 import { useEffect, useState } from "react";
 
-function BtcPrice() {
-  const [btcPrice, setBtcPrice] = useState();
+function formatter(num: number) {
+  let interNum = "";
+  if (interNum.indexOf(".") === -1) {
+    interNum = num.toFixed(2).toString();
+  } else {
+    interNum = num.toString();
+  }
+  const indexOfDot = interNum.indexOf(".");
+  let fractionalPart = "";
+  fractionalPart = interNum.substring(indexOfDot);
+  interNum = interNum.substring(0, indexOfDot);
 
+  let subStringFromEnd: string[] = [];
+  while (interNum.length > 3) {
+    subStringFromEnd = subStringFromEnd.concat(interNum.substring(interNum.length - 3));
+    interNum = interNum.substring(0, interNum.length - 3);
+  }
+  let out = interNum;
+  for (let i = subStringFromEnd.length - 1; i > -1; i--) {
+    out = out.concat(",").concat(subStringFromEnd.at(i)!);
+  }
+  return out + fractionalPart;
+}
+
+function BtcPrice() {
+  const [price, setPrice] = useState(42819);
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/coins/bitcoin?tickers=false&community_data=false&developer_data=false",
       { cache: "force-cache" }
     )
       .then((res) => res.json())
-      .then((data) => setBtcPrice(data.market_data.current_price.usd));
+      .then((data) => {
+        setPrice(data.market_data.current_price.usd);
+      });
   }, []);
 
   return (
-    <div className="rounded-lg flex flex-col border-white border p-5 text-black dark:text-white dark:border-[#262626] dark:border-[#262626] dark:text-white dark:shadow-none shadow-md shadow-[#B0BDC7]">
+    <div className="rounded-lg flex flex-col border-white border p-5 text-black dark:border-[#262626] dark:text-white dark:shadow-none shadow-md shadow-[#B0BDC7]">
       <div className="flex gap-2 justify-between items-center">
-        <span>BTC price</span>
-        <span className="font-light text-sm">{btcPrice} USD</span>
+        <span className="text-sm font-medium">BTC price</span>
+        <span className="font-normal text-sm">{formatter(price)} USD</span>
         <div className="text-[#4AC91E] flex gap-1">
           <Image src="/up-green.svg" width={10} height={10} alt="Increment" />
           <span>0.63%</span>
