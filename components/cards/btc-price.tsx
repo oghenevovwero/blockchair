@@ -8,7 +8,7 @@ const BtcPrice: React.FC<BtcPriceProps> = () => {
 const [price, setPrice] = React.useState(43215)
 
 React.useEffect(() => {
-fetch.get(
+fetch(
       'https://api.coingecko.com/api/v3/coins/bitcoin?tickers=false&community_data=false&developer_data=false'
     ).then(res => res.json()).then(data => setPrice(  data.market_data.current_price.usd  ))
 }, []);
