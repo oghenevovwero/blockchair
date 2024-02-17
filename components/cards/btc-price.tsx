@@ -44,10 +44,6 @@ function BtcPrice() {
       <div className="flex gap-2 justify-between items-center">
         <span className="text-sm font-medium">BTC price</span>
         <span className="font-normal text-sm">{formatter(price)} USD</span>
-
-        <span>BTC price</span>
-        <span className="font-light text-sm">{price} USD</span>
-
         <div className="text-[#4AC91E] flex gap-1">
           <Image src="/up-green.svg" width={10} height={10} alt="Increment" />
           <span>0.63%</span>
