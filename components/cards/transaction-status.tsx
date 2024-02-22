@@ -3,7 +3,7 @@ import ThemeAwareQmarkIcon from "../qmark";
 import { Transaction } from "../records";
 import { useState } from "react";
 
-function TransactionStatus({ transaction }: { transaction: Transaction }) {
+function TransactionStatus({ transaction, price }: { transaction: Transaction, price: number }) {
   const [additionalInfo, setOpenAdditionalInfo] = useState(false);
   return (
     <div className="flex flex-col rounded-lg text-black border border-white dark:text-white dark:border-[#262626] dark:shadow-none shadow-md shadow-[#B0BDC7]">
@@ -36,7 +36,7 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
         </div>
 
         <div className="lg:hidden bg-[#EFF2F9] dark:bg-[#131313]">
-          <InfoSection transaction={transaction} />
+          <InfoSection transaction={transaction} price={price} />
         </div>
 
         {additionalInfo && <AdditionalInfo />}
@@ -108,7 +108,7 @@ function AdditionalInfo() {
   );
 }
 
-function InfoSection({ transaction }: { transaction: Transaction }) {
+function InfoSection({ transaction, price }: { transaction: Transaction, price: number }) {
   return (
     <div className="flex flex-col h-full justify-center rounded-b-lg pl-2">
       <div className="flex flex-col p-3  gap-2">
@@ -117,7 +117,7 @@ function InfoSection({ transaction }: { transaction: Transaction }) {
           <ThemeAwareQmarkIcon />
         </div>
         <span className="text-black dark:text-white text-sm">
-          0.00511252 BTC {transaction.amount} USD
+          {(transaction.amount / price).toFixed(8)} BTC {transaction.amount} USD
         </span>
       </div>
       <div className="flex flex-col p-3  gap-2">
@@ -126,7 +126,7 @@ function InfoSection({ transaction }: { transaction: Transaction }) {
           <ThemeAwareQmarkIcon />
         </div>
         <span className="text-black dark:text-white text-sm">
-          0.00511252 BTC {transaction.fee} USD
+        {(transaction.amount / price).toFixed(8)} BTC {transaction.fee} USD
         </span>
       </div>
       <div className="flex flex-col p-3  gap-2">

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AltExplorers from "../cards/alt-explorers";
 import BlockchairAwesome from "../cards/blockchair-awesome";
 import BtcPrice from "../cards/btc-price";
@@ -11,6 +12,7 @@ import { Transaction } from "../records";
 import PaddedWrapper from "../wrappers/padded";
 
 function InfoCard({ transaction}: {transaction: Transaction }) {
+  const [price, setPrice] = useState(1);
   return (
     <PaddedWrapper className="grid grid-cols-1 lg:grid-cols-4 lg:gap-5">
       <div className="col-span-3 grid grid-cols-1 lg:grid-cols-3 lg:gap-5">
@@ -19,7 +21,7 @@ function InfoCard({ transaction}: {transaction: Transaction }) {
         </div>
         <div className="col-span-2">
           <div className="mb-1">
-            <TransactionStatus transaction={transaction} />
+            <TransactionStatus transaction={transaction} price={price}/>
           </div>
           <div
             className="
@@ -53,7 +55,7 @@ function InfoCard({ transaction}: {transaction: Transaction }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 lg:gap-[10px]">
         <div className="max-lg:mb-5">
-          <BtcPrice transaction={transaction} />
+          <BtcPrice setBtcPrice={setPrice} />
         </div>
         <div className="max-lg:mb-5">
           <BlockchairAwesome />

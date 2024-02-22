@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ThemeAwareChart from "../chart";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Transaction } from "../records";
 
 function formatter(num: number) {
@@ -27,7 +27,7 @@ function formatter(num: number) {
   return out + fractionalPart;
 }
 
-function BtcPrice({ transaction }: { transaction: Transaction }) {
+function BtcPrice({setBtcPrice }: {  setBtcPrice: Dispatch<SetStateAction<number>> }) {
   const [price, setPrice] = useState(42819);
   const [priceChangeIn24Hours, setPriceChangeIn24Hours] = useState(0);
   useEffect(() => {
@@ -38,6 +38,7 @@ function BtcPrice({ transaction }: { transaction: Transaction }) {
       .then((res) => res.json())
       .then((data) => {
         setPrice(data.market_data.current_price.usd);
+        setBtcPrice(data.market_data.current_price.usd);
         setPriceChangeIn24Hours(data.market_data.price_change_percentage_24h);
       });
   }, []);

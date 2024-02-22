@@ -19,13 +19,13 @@ function MinimizedRecipients({ transaction }: { transaction: Transaction }) {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <div>
-      <div
+      <div onClick={() => setShowDetails((prev) => !prev)}
         className="p-4 border dark:border-[#262626] 
       flex items-center gap-2 w-full font-[400] text-sm text-[#B0BDC7] rounded-2xl
        dark:bg-[#0E0E0E] bg-[#F6F9FF]"
       >
         <div
-          onClick={() => setShowDetails((prev) => !prev)}
+          
           className={`w-[6px] h-[6px] ${showDetails && "rotate-90"}`}
         >
           <svg viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">

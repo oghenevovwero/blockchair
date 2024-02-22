@@ -39,13 +39,19 @@ export default function RegisterModal({
       return randomHash;
     };
 
+    const time = new Date().getTime();
+
     const transactionHash = generateTransactionHash();
     setData([
       {
-        amount: values.amount - 0.0,
-        status: "Pending",
-        fee: values.fee - 0.0,
         hash: transactionHash,
+        timeStamp: time,
+        sender: values.sender,
+        recipient: values.recipient,
+        confirmed: range,
+        amount: values.amount - 0.0,
+        status: transactionState,
+        fee: values.fee - 0.0,
       } as Transaction,
       ...data,
     ]);
@@ -56,7 +62,7 @@ export default function RegisterModal({
         status: transactionState,
         fee: values.fee - 0.0,
         hash: transactionHash,
-        timeStamp: new Date().getTime().toString(),
+        timeStamp: time,
         sender: values.sender,
         recipient: values.recipient,
         confirmed: range,

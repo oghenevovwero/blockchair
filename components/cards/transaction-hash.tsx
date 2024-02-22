@@ -8,7 +8,7 @@ const dmMono = DM_Mono({weight: "500", subsets: ["latin"]})
 function ago(timeStamp: number) {
   const passedSeconds = (new Date().getTime() - timeStamp) / 1000;
   if (passedSeconds < 60) {
-    return `${passedSeconds.toFixed()} secs ago}`;
+    return `${passedSeconds.toFixed()} secs ago`;
   } else if (passedSeconds < 3600) {
     return `${(passedSeconds / 60).toFixed()} ${passedSeconds / 60 < 2 ? "min" : "mins"} ago`;
   } else if (passedSeconds < 3600 * 24) {
@@ -17,6 +17,9 @@ function ago(timeStamp: number) {
     return `${(passedSeconds / 86400).toFixed()} ${passedSeconds / 86400 < 2 ? "day" : "days"} ago`;
   }else{
     const weeks = passedSeconds / (86400 * 7)
+    if((weeks / 4) > 1){
+      return `${(weeks / 4).toFixed()} ${weeks / 4 < 2 ? "month" : "months"} ago`
+    }
     return `${weeks.toFixed()} ${weeks < 2 ? "week" : "weeks"} ago`
   }
 }
