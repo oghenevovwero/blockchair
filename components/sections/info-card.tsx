@@ -39,13 +39,13 @@ function InfoCard({ transaction}: {transaction: Transaction }) {
           max-lg:hidden
           "
           >
-            <Senders />
-            <Recipients />
+            <Senders transaction={transaction} />
+            <Recipients transaction={transaction} />
           </div>
           <div className="lg:hidden">
-            <Senders />
+            <Senders transaction={transaction} />
             <div className="mt-1">
-              <Recipients />
+              <Recipients transaction={transaction} />
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@ function InfoCard({ transaction}: {transaction: Transaction }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 lg:gap-[10px]">
         <div className="max-lg:mb-5">
-          <BtcPrice />
+          <BtcPrice transaction={transaction} />
         </div>
         <div className="max-lg:mb-5">
           <BlockchairAwesome />

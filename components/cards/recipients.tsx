@@ -1,22 +1,21 @@
 import Image from "next/image";
 import { useState } from "react";
+import { Transaction } from "../records";
 
-type RecipientsProps = {};
-
-const Recipients: React.FC<RecipientsProps> = () => {
+function Recipients({ transaction }: { transaction: Transaction }) {
   return (
     <div>
       <div className="max-lg:hidden">
-        <ExpandedRecipients />
+        <ExpandedRecipients transaction={transaction} />
       </div>
       <div className="lg:hidden">
-        <MinimizedRecipients />
+        <MinimizedRecipients transaction={transaction} />
       </div>
     </div>
   );
-};
+}
 
-function MinimizedRecipients() {
+function MinimizedRecipients({ transaction }: { transaction: Transaction }) {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <div>
@@ -40,15 +39,15 @@ function MinimizedRecipients() {
           </div>
         </div>
       </div>
-      {showDetails && <MinimizedDetails />}
+      {showDetails && <MinimizedDetails transaction={transaction} />}
     </div>
   );
 }
 
-function MinimizedDetails() {
+function MinimizedDetails({ transaction }: { transaction: Transaction }) {
   return (
     <div>
-      <div className="flex flex-col h-fit my-1 dark:text-white text-sm">        
+      <div className="flex flex-col h-fit my-1 dark:text-white text-sm">
         <div className="flex flex-col gap-2 px-5 py-3 rounded-lg bg-[#FFFFFF] dark:bg-[#131313]">
           <span className="text-[#2170FF] break-all flex items-center gap-1">
             dA1q0fhw64ksytynkkgteprc8gz7mst
@@ -88,7 +87,7 @@ function MinimizedDetails() {
   );
 }
 
-function ExpandedRecipients() {
+function ExpandedRecipients({ transaction }: { transaction: Transaction }) {
   return (
     <div className="flex flex-col gap-1 text-black dark:text-white">
       <div className="flex flex-col h-fit">
@@ -100,7 +99,7 @@ function ExpandedRecipients() {
         </div>
         <div className="flex flex-col gap-2 px-5 py-3 rounded-b-lg bg-[#FFFFFF] dark:bg-[#131313]">
           <span className="text-[#2170FF] break-all">
-            bc1q0fhw64ksytynkkgteprc8gz7mstw5v0dr9l05s
+            {transaction.recipient}
             <div className="float-right">
               <Image className="float-right" src="/copy.svg" height={15} width={15} alt="copy" />
             </div>
@@ -112,7 +111,7 @@ function ExpandedRecipients() {
       </div>
       <div className="flex flex-col gap-2 px-5 py-3 rounded-lg bg-[#FFFFFF] dark:bg-[#131313] h-fit">
         <span className="text-[#2170FF] break-all">
-          bc1q0fhw64ksytynkkgteprc8gz7mstw5v0dr9l05s
+          {transaction.sender}
           <div className="flex gap-2 float-right">
             <Image src="/copy.svg" height={15} width={15} alt="copy" />
             <span className="border h-fit text-black dark:text-white border-[#FCBB19] px-2 rounded-full font-light text-[100] text-xs">

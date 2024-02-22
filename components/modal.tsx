@@ -148,11 +148,11 @@ export default function Modal({
               </div>
             </div>
             {/* BODY */}
-            <div className="relative p-6 flex-auto">
+            <div className="relative px-6 pt-6 pb-3 flex-auto">
               {body}
             </div>
             {/* FOOTER */}
-            <div className="flex flex-col gap-2 p-6">
+            <div className="flex flex-col gap-2 px-6 pb-4">
               <div
                 className="
                 flex

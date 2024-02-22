@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ThemeAwareChart from "../chart";
 import React, { useEffect, useState } from "react";
+import { Transaction } from "../records";
 
 function formatter(num: number) {
   let interNum = "";
@@ -26,8 +27,9 @@ function formatter(num: number) {
   return out + fractionalPart;
 }
 
-function BtcPrice() {
+function BtcPrice({ transaction }: { transaction: Transaction }) {
   const [price, setPrice] = useState(42819);
+  const [priceChangeIn24Hours, setPriceChangeIn24Hours] = useState(0);
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/coins/bitcoin?tickers=false&community_data=false&developer_data=false",
@@ -36,18 +38,39 @@ function BtcPrice() {
       .then((res) => res.json())
       .then((data) => {
         setPrice(data.market_data.current_price.usd);
+        setPriceChangeIn24Hours(data.market_data.price_change_percentage_24h);
       });
   }, []);
 
   return (
     <div className="rounded-lg flex flex-col border-white border p-5 text-black dark:border-[#262626] dark:text-white dark:shadow-none shadow-md shadow-[#B0BDC7]">
       <div className="flex gap-2 justify-between items-center">
-        <span className="text-sm font-medium">BTC price</span>
+        <span className="text-sm font-semibold">BTC Price</span>
         <span className="font-normal text-sm">{formatter(price)} USD</span>
-        <div className="text-[#4AC91E] flex gap-1">
-          <Image src="/up-green.svg" width={10} height={10} alt="Increment" />
-          <span>0.63%</span>
-        </div>
+
+        {priceChangeIn24Hours > 0 ? (
+          <div className=" flex gap-1 text-[#4AC91E]">
+            <Image src="/up-green.svg" width={10} height={10} alt="Price up" />
+            <span>{priceChangeIn24Hours.toFixed(2)}%</span>
+          </div>
+        ) : (
+          <div className=" flex justify-center items-center gap-1 text-red-600">
+            <svg
+              className="ml-10 rotate-180"
+              width="9"
+              height="6"
+              viewBox="0 0 9 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.1837 4.99987L4.71924 1.46433L8.25477 4.99987"
+                stroke="red"
+              ></path>
+            </svg>
+            <span>{Math.abs(priceChangeIn24Hours).toFixed(2)}%</span>
+          </div>
+        )}
       </div>
       <span className="flex justify-start mb-3 font-[400] text-sm text-[#7691A5]">Last month</span>
       <div>

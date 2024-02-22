@@ -23,10 +23,12 @@ export default function RegisterModal({
   );
   const form = useForm<FieldValues>({});
 
+  const [range, setRange] = useState(1);
+
   const onSubmit: SubmitHandler<FieldValues> = (values) => {
     setOpenModal(false);
     form.reset();
-    const generateHash = () => {
+    const generateTransactionHash = () => {
       let randomHash = "";
       const characters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789";
       //i want 64 length long random hash
@@ -36,7 +38,8 @@ export default function RegisterModal({
       }
       return randomHash;
     };
-    const transactionHash = generateHash();
+
+    const transactionHash = generateTransactionHash();
     setData([
       {
         amount: values.amount - 0.0,
@@ -54,6 +57,9 @@ export default function RegisterModal({
         fee: values.fee - 0.0,
         hash: transactionHash,
         timeStamp: new Date().getTime().toString(),
+        sender: values.sender,
+        recipient: values.recipient,
+        confirmed: range,
       })
         .then(() => {
           toast.success("Transaction created successfully");
@@ -85,7 +91,7 @@ export default function RegisterModal({
   };
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <Heading title="Fill new transaction form" subtitle="Create your transaction!" />
       <Input
         register={form.register}
@@ -103,26 +109,99 @@ export default function RegisterModal({
         errors={form.formState.errors}
         required
       />
+      <div className="w-full relative">
+        <label
+          className={`
+      absolute
+      text-md
+      duration-150
+      transform
+      -translate-y-3
+      top-4
+      z-10
+      origin-[0]
+      left-4
+      peer-placeholder-shown:scale-100
+      peer-placeholder-shown:translate-y-0
+      peer-focus:scale-75
+      peer-focus:-translate-y-4
+    `}
+        >
+          <span className="font-semibold"> Confirmed {range}</span>
+        </label>
+        <input
+          onChange={(e) => {
+            setRange(parseInt(e.currentTarget.value));
+          }}
+          title="Confirmed"
+          id="confirmed"
+          placeholder=" " /**This has to be " " and not "" */
+          type="range"
+          min={1}
+          step={1}
+          max={12}
+          defaultValue={1}
+          className={`
+        peer 
+        w-full 
+        p-3
+        pt-6
+        mt-3
+        font-light
+         bg-white 
+         border-2 
+         rounded-md 
+         outline-none 
+         transition
+         disabled:opacity-40
+         pl-4"
+         `}
+        />
+      </div>
+      <Input
+        register={form.register}
+        id="sender"
+        label="Sender address"
+        type="string"
+        errors={form.formState.errors}
+        required
+      />
+      <Input
+        register={form.register}
+        id="recipient"
+        label="Recipient address"
+        type="string"
+        errors={form.formState.errors}
+        required
+      />
       <div className="flex items-center justify-around gap-3">
         <button
           onClick={() => setTransactionState("Confirmed")}
           className={`border border-green-500 p-2 rounded-lg ${
-            transactionState === "Confirmed" ? "bg-green-500 text-white font-extralight text-sm" : ""
+            transactionState === "Confirmed"
+              ? "bg-green-500 p-[10px] text-white font-extralight text-sm"
+              : ""
           }`}
         >
           Confirmed
         </button>
         <button
           onClick={() => setTransactionState("Pending")}
-          className={`border border-orange-500 p-2 rounded-lg ${
-            transactionState === "Pending" ? "bg-orange-500 text-white font-extralight text-sm" : ""
+          className={`border border-yellow-500 p-2 rounded-lg ${
+            transactionState === "Pending"
+              ? "bg-yellow-500 p-[10px] text-white font-extralight text-sm"
+              : ""
           }`}
         >
           Pending
         </button>
         <button
           onClick={() => setTransactionState("Failed")}
-          className={`border border-red-500 p-2 rounded-lg ${transactionState === "Failed" ? "bg-red-500 text-white font-extralight text-sm" : ""}`}
+          className={`border border-red-500 p-2 rounded-lg ${
+            transactionState === "Failed"
+              ? "bg-red-500 p-[10px] text-white font-extralight text-sm"
+              : ""
+          }`}
         >
           Failed
         </button>

@@ -26,11 +26,11 @@ export default function Input({
         disabled={disabled}
         {...register(id, { required })}
         placeholder=" " /**This has to be " " and not "" */
-        type={type}
+        type={type}        
         className={`
         peer 
         w-full 
-        p-4 
+        p-3
         pt-6
         font-light
          bg-white 

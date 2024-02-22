@@ -20,7 +20,6 @@ export default function UpdateTransaction({
   setData: React.Dispatch<React.SetStateAction<Transaction[]>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  console.log(transaction.status)
   const [transactionState, setTransactionState] = useState<"Confirmed" | "Pending" | "Failed">(
     transaction.status
   );
@@ -28,6 +27,9 @@ export default function UpdateTransaction({
     defaultValues: {
       amount: transaction.amount,
       fee: transaction.fee,
+      recipient: transaction.recipient,
+      sender: transaction.sender,
+      confirmed: transaction.confirmed,
     },
   });
 
@@ -53,6 +55,11 @@ export default function UpdateTransaction({
         {
           amount: values.amount - 0.0,
           fee: values.fee - 0.0,
+          sender: values.sender,
+          recipient: values.recipient,
+          timeStamp: transaction.timeStamp,
+          confirmed: values.confirmed,
+          status: transactionState,
         },
         { merge: true }
       )
@@ -65,7 +72,10 @@ export default function UpdateTransaction({
               fee: values.fee - 0.0,
               amount: values.amount - 0.0,
               hash: transaction.hash,
+              sender: values.sender,
+              recipient: values.recipient,
               timeStamp: transaction.timeStamp,
+              confirmed: values.confirmed,
             },
             ...data.slice(indexOfTransaction + 1),
           ]);
@@ -106,12 +116,36 @@ export default function UpdateTransaction({
         errors={form.formState.errors}
         required
       />
+      <Input
+        register={form.register}
+        id="confirmed"
+        label="Confirmed"
+        type="number"
+        errors={form.formState.errors}
+        required
+      />
+      <Input
+        register={form.register}
+        id="sender"
+        label="Sender address"
+        type="string"
+        errors={form.formState.errors}
+        required
+      />
+      <Input
+        register={form.register}
+        id="recipient"
+        label="Recipient address"
+        type="string"
+        errors={form.formState.errors}
+        required
+      />
       <div className="flex items-center justify-around p-2">
         <button
           onClick={() => setTransactionState("Confirmed")}
           className={`border border-green-500 p-2 rounded-lg ${
             transactionState === "Confirmed"
-              ? "bg-green-500 text-white font-extralight text-sm"
+              ? "bg-green-500 p-[10px] text-white font-extralight text-sm"
               : ""
           }`}
         >
@@ -119,8 +153,10 @@ export default function UpdateTransaction({
         </button>
         <button
           onClick={() => setTransactionState("Pending")}
-          className={`border border-orange-500 p-2 rounded-lg ${
-            transactionState === "Pending" ? "bg-orange-500 text-white font-extralight text-sm" : ""
+          className={`border border-yellow-500 p-2 rounded-lg ${
+            transactionState === "Pending"
+              ? "bg-yellow-500 p-[10px] text-white font-extralight text-sm"
+              : ""
           }`}
         >
           Pending
@@ -128,7 +164,9 @@ export default function UpdateTransaction({
         <button
           onClick={() => setTransactionState("Failed")}
           className={`border border-red-500 p-2 rounded-lg ${
-            transactionState === "Failed" ? "bg-red-500 text-white font-extralight text-sm" : ""
+            transactionState === "Failed"
+              ? "bg-red-500 p-[10px] text-white font-extralight text-sm"
+              : ""
           }`}
         >
           Failed

@@ -32,6 +32,9 @@ export type Transaction = {
   status: "Pending" | "Confirmed" | "Failed";
   fee: number;
   timeStamp: number;
+  sender: string;
+  recipient: string;
+  confirmed: number;
 };
 
 export default function Records() {
