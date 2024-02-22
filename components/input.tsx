@@ -30,8 +30,9 @@ export default function Input({
         className={`
         peer 
         w-full 
-        p-3
-        pt-6
+        pt-[26px]
+        pl-3
+        pb-2
         font-light
          bg-white 
          border-2 
@@ -39,7 +40,7 @@ export default function Input({
          outline-none 
          transition
          disabled:opacity-40
-         pl-4"
+         "
          ${errors[id] ? "border-rose-500" : "border-neutral-300"}
          ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
          `}
@@ -51,7 +52,7 @@ export default function Input({
         duration-150
         transform
         -translate-y-3
-        top-5
+        top-4
         z-10
         origin-[0]
         left-4

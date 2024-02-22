@@ -135,7 +135,7 @@ export default function RegisterModal({
          "
          `}
         />
-        <div className="font-bold">{range}</div>
+        <div className="font-bold mr-1">{range}</div>
       </div>
       <Input
         register={form.register}
