@@ -46,7 +46,7 @@ function BtcPrice({ transaction }: { transaction: Transaction }) {
     <div className="rounded-lg flex flex-col border-white border p-5 text-black dark:border-[#262626] dark:text-white dark:shadow-none shadow-md shadow-[#B0BDC7]">
       <div className="flex gap-2 justify-between items-center">
         <span className="text-sm font-semibold">BTC Price</span>
-        <span className="font-normal text-sm">{formatter(price)} USD</span>
+        <span className="text-sm font-semibold">{formatter(price)} USD</span>
 
         {priceChangeIn24Hours > 0 ? (
           <div className=" flex gap-1 text-[#4AC91E]">

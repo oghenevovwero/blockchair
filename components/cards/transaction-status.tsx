@@ -22,7 +22,7 @@ function TransactionStatus({ transaction }: { transaction: Transaction }) {
             <span className="font-[400] text-sm text-[#8191B5]">Transaction status</span>
             <div className="font-semibold">{transaction.status}</div>
             <div className="flex justify-start items-center gap-1">
-              <span className="text-xs  md:text-lg"><span className="text-sm">{transaction.confirmed}/12</span> confirmations</span>
+              <span className="text-xs  md:text-lg">{transaction.confirmed}/12 confirmations</span>
               <Image src="/qmark.svg" height={20} width={20} alt="copy" />
               <div className="rounded-full font-semibold bg-[#21BAF7]  text-xs md:text-sm px-1 md:px-2 py-[1px] md:py-[2px]">
                 segWit
