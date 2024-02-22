@@ -92,7 +92,7 @@ export default function RegisterModal({
 
   const bodyContent = (
     <div className="flex flex-col gap-2">
-      <Heading title="Fill new transaction form" subtitle="Create your transaction!" />
+      <Heading title="New transaction form" subtitle="Create your transaction!" />
       <Input
         register={form.register}
         id="amount"
@@ -174,7 +174,7 @@ export default function RegisterModal({
         errors={form.formState.errors}
         required
       />
-      <div className="flex items-center justify-around gap-3">
+      <div className="flex items-center justify-between gap-3">
         <button
           onClick={() => setTransactionState("Confirmed")}
           className={`border border-green-500 p-2 rounded-lg ${
