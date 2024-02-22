@@ -30,8 +30,8 @@ export default function Input({
         className={`
         peer 
         w-full 
-        p-2
-        pt-4
+        p-3
+        pt-6
         font-light
          bg-white 
          border-2 
