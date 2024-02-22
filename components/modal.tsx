@@ -127,7 +127,8 @@ export default function Modal({
             <div
               className="
               flex
-              p-6
+              px-6
+              py-3
               rounded-t
               justify-center
               items-center

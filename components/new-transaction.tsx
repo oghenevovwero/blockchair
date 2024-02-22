@@ -91,7 +91,7 @@ export default function RegisterModal({
   };
 
   const bodyContent = (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 md:gap-3 lg:gap-4">
       <Heading title="New transaction form" subtitle="Create your transaction!" />
       <Input
         register={form.register}
@@ -109,26 +109,7 @@ export default function RegisterModal({
         errors={form.formState.errors}
         required
       />
-      <div className="w-full relative">
-        <label
-          className={`
-      absolute
-      text-md
-      duration-150
-      transform
-      -translate-y-3
-      top-4
-      z-10
-      origin-[0]
-      left-4
-      peer-placeholder-shown:scale-100
-      peer-placeholder-shown:translate-y-0
-      peer-focus:scale-75
-      peer-focus:-translate-y-4
-    `}
-        >
-          <span className="font-semibold"> Confirmed {range}</span>
-        </label>
+      <div className="w-full relative flex items-center gap-3">
         <input
           onChange={(e) => {
             setRange(parseInt(e.currentTarget.value));
@@ -143,10 +124,7 @@ export default function RegisterModal({
           defaultValue={1}
           className={`
         peer 
-        w-full 
-        p-3
-        pt-6
-        mt-3
+        flex-1
         font-light
          bg-white 
          border-2 
@@ -154,9 +132,10 @@ export default function RegisterModal({
          outline-none 
          transition
          disabled:opacity-40
-         pl-4"
+         "
          `}
         />
+        <div className="font-bold">{range}</div>
       </div>
       <Input
         register={form.register}
@@ -174,7 +153,7 @@ export default function RegisterModal({
         errors={form.formState.errors}
         required
       />
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between md:justify-around gap-3">
         <button
           onClick={() => setTransactionState("Confirmed")}
           className={`border border-green-500 p-2 rounded-lg ${
