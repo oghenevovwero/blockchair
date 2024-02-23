@@ -4,7 +4,7 @@ import { Transaction } from "../records";
 
 function Recipients({ transaction, price }: { transaction: Transaction, price: number }) {
   return (
-    <div>      
+    <div>
       <div className="max-lg:hidden">
         <ExpandedRecipients transaction={transaction} price={price} />
       </div>

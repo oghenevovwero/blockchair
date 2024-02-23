@@ -8,19 +8,19 @@ const dmMono = DM_Mono({weight: "500", subsets: ["latin"]})
 function ago(timeStamp: number) {
   const passedSeconds = (new Date().getTime() - timeStamp) / 1000;
   if (passedSeconds < 60) {
-    return `${passedSeconds.toFixed()} secs ago`;
+    return `${Math.floor(passedSeconds)} secs ago`;
   } else if (passedSeconds < 3600) {
-    return `${(passedSeconds / 60).toFixed()} ${passedSeconds / 60 < 2 ? "min" : "mins"} ago`;
+    return `${Math.floor(passedSeconds / 60)} ${passedSeconds / 60 < 2 ? "min" : "mins"} ago`;
   } else if (passedSeconds < 3600 * 24) {
-    return `${(passedSeconds / 3600).toFixed()} ${passedSeconds / 3600 < 2 ? "hour" : "hours"} ago`;
+    return `${Math.floor(passedSeconds / 3600)} ${passedSeconds / 3600 < 2 ? "hour" : "hours"} ago`;
   } else if(passedSeconds / 86400 < 7){
-    return `${(passedSeconds / 86400).toFixed()} ${passedSeconds / 86400 < 2 ? "day" : "days"} ago`;
+    return `${(Math.floor(passedSeconds / 86400))} ${passedSeconds / 86400 < 2 ? "day" : "days"} ago`;
   }else{
     const weeks = passedSeconds / (86400 * 7)
     if((weeks / 4) > 1){
-      return `${(weeks / 4).toFixed()} ${weeks / 4 < 2 ? "month" : "months"} ago`
+      return `${Math.floor((weeks / 4))} ${weeks / 4 < 2 ? "month" : "months"} ago`
     }
-    return `${weeks.toFixed()} ${weeks < 2 ? "week" : "weeks"} ago`
+    return `${(Math.floor(weeks))} ${weeks < 2 ? "week" : "weeks"} ago`
   }
 }
 
