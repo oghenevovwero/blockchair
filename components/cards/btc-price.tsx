@@ -27,7 +27,7 @@ function formatter(num: number) {
   return out + fractionalPart;
 }
 
-function BtcPrice({setBtcPrice }: {  setBtcPrice: Dispatch<SetStateAction<number>> }) {
+function BtcPrice({setBtcPrice, setPercentageChangeInBtc }: {  setBtcPrice: Dispatch<SetStateAction<number>>, setPercentageChangeInBtc: Dispatch<SetStateAction<number>> }) {
   const [price, setPrice] = useState(42819);
   const [priceChangeIn24Hours, setPriceChangeIn24Hours] = useState(0);
   useEffect(() => {
@@ -39,7 +39,9 @@ function BtcPrice({setBtcPrice }: {  setBtcPrice: Dispatch<SetStateAction<number
       .then((data) => {
         setPrice(data.market_data.current_price.usd);
         setBtcPrice(data.market_data.current_price.usd);
+        console.log(data.market_data)
         setPriceChangeIn24Hours(data.market_data.price_change_percentage_24h);
+        setPercentageChangeInBtc(data.market_data.price_change_percentage_24h);
       });
   }, []);
 

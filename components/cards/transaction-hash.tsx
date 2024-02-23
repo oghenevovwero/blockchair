@@ -24,7 +24,7 @@ function ago(timeStamp: number) {
   }
 }
 
-const TransactionHash = ({ transaction }: { transaction: Transaction }) => {
+const TransactionHash = ({ transaction, price }: { transaction: Transaction, price: number }) => {
   return (
     <div className="rounded-lg border h-fit bg-[#EFF2F9] dark:bg-[#0E0E0E] border-white flex flex-col dark:border-[#262626] dark:shadow-none shadow-lg shadow-[#B0BDC7]">
       <div className="flex flex-col p-5 bg-[#FFFFFF] dark:bg-[#131313] gap-2 rounded-t-lg">
@@ -36,12 +36,12 @@ const TransactionHash = ({ transaction }: { transaction: Transaction }) => {
           <Image className="float-right m-0" src="/copy.svg" height={18} width={18} alt="copy" />
         </span>
       </div>
-      <InfoSection transaction={transaction} />
+      <InfoSection transaction={transaction} price={price} />
     </div>
   );
 };
 
-function InfoSection({ transaction }: { transaction: Transaction }) {
+function InfoSection({ transaction, price }: { transaction: Transaction, price: number }) {
   return (
     <div className="flex flex-col h-full justify-center rounded-b-lg lg:py-[15px]">
       <div className="max-lg:hidden">
@@ -51,7 +51,7 @@ function InfoSection({ transaction }: { transaction: Transaction }) {
             <ThemeAwareQmarkIcon />
           </div>
           <span className="text-black dark:text-white text-sm">
-            0.00511252 BTC {transaction.amount} USD
+            {(transaction.amount / price).toFixed(8)} BTC {transaction.amount} USD
           </span>
         </div>
         <div className="flex flex-col p-3  gap-2">
@@ -60,7 +60,7 @@ function InfoSection({ transaction }: { transaction: Transaction }) {
             <ThemeAwareQmarkIcon />
           </div>
           <span className="text-black dark:text-white text-sm">
-            0.00511252 BTC {transaction.fee} USD
+            {(transaction.amount / price).toFixed(8)} BTC {transaction.fee} USD
           </span>
         </div>
         <div className="flex flex-col p-3  gap-2">

@@ -11,17 +11,19 @@ import PrivacyControl from "../privacy-control";
 import { Transaction } from "../records";
 import PaddedWrapper from "../wrappers/padded";
 
-function InfoCard({ transaction}: {transaction: Transaction }) {
-  const [price, setPrice] = useState(1);
+function InfoCard({ transaction }: { transaction: Transaction }) {
+  const [price, setBtcPrice] = useState(1);
+  const [percentageChangeInBtc, setPercentageChangeInBtc] = useState(1);
+
   return (
     <PaddedWrapper className="grid grid-cols-1 lg:grid-cols-4 lg:gap-5">
       <div className="col-span-3 grid grid-cols-1 lg:grid-cols-3 lg:gap-5">
         <div className="max-lg:mb-5">
-          <TransactionHash transaction={transaction} />
+          <TransactionHash transaction={transaction} price={price} />
         </div>
         <div className="col-span-2">
           <div className="mb-1">
-            <TransactionStatus transaction={transaction} price={price}/>
+            <TransactionStatus transaction={transaction} price={price} />
           </div>
           <div
             className="
@@ -41,13 +43,21 @@ function InfoCard({ transaction}: {transaction: Transaction }) {
           max-lg:hidden
           "
           >
-            <Senders transaction={transaction} />
-            <Recipients transaction={transaction} />
+            <Senders
+              transaction={transaction}
+              price={price}
+              percentageChangeInBtc={percentageChangeInBtc}
+            />
+            <Recipients transaction={transaction} price={price} />
           </div>
           <div className="lg:hidden">
-            <Senders transaction={transaction} />
+            <Senders
+              transaction={transaction}
+              price={price}
+              percentageChangeInBtc={percentageChangeInBtc}
+            />
             <div className="mt-1">
-              <Recipients transaction={transaction} />
+              <Recipients transaction={transaction} price={price} />
             </div>
           </div>
         </div>
@@ -55,7 +65,7 @@ function InfoCard({ transaction}: {transaction: Transaction }) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 lg:gap-[10px]">
         <div className="max-lg:mb-5">
-          <BtcPrice setBtcPrice={setPrice} />
+          <BtcPrice setBtcPrice={setBtcPrice} setPercentageChangeInBtc={setPercentageChangeInBtc} />
         </div>
         <div className="max-lg:mb-5">
           <BlockchairAwesome />

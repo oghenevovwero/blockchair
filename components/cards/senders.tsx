@@ -2,20 +2,44 @@ import Image from "next/image";
 import { useState } from "react";
 import { Transaction } from "../records";
 
-function Senders({ transaction }: { transaction: Transaction }) {
+function Senders({
+  transaction,
+  price,
+  percentageChangeInBtc,
+}: {
+  transaction: Transaction;
+  price: number;
+  percentageChangeInBtc: number;
+}) {
   return (
     <div>
       <div className="max-lg:hidden">
-        <ExpandedSenders transaction={transaction} />
+        <ExpandedSenders
+          transaction={transaction}
+          price={price}
+          percentageChangeInBtc={percentageChangeInBtc}
+        />
       </div>
       <div className="lg:hidden">
-        <MinimizedSenders transaction={transaction} />
+        <MinimizedSenders
+          transaction={transaction}
+          price={price}
+          percentageChangeInBtc={percentageChangeInBtc}
+        />
       </div>
     </div>
   );
 }
 
-function MinimizedSenders({ transaction }: { transaction: Transaction }) {
+function MinimizedSenders({
+  transaction,
+  price,
+  percentageChangeInBtc,
+}: {
+  transaction: Transaction;
+  price: number;
+  percentageChangeInBtc: number;
+}) {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <div>
@@ -37,12 +61,26 @@ function MinimizedSenders({ transaction }: { transaction: Transaction }) {
           </div>
         </div>
       </div>
-      {showDetails && <MinimizedDetails transaction={transaction} />}
+      {showDetails && (
+        <MinimizedDetails
+          transaction={transaction}
+          price={price}
+          percentageChangeInBtc={percentageChangeInBtc}
+        />
+      )}
     </div>
   );
 }
 
-function MinimizedDetails({ transaction }: { transaction: Transaction }) {
+function MinimizedDetails({
+  transaction,
+  price,
+  percentageChangeInBtc,
+}: {
+  transaction: Transaction;
+  price: number;
+  percentageChangeInBtc: number;
+}) {
   return (
     <div className="flex flex-col gap-2 mt-1 dark:text-white rounded-lg py-3 px-5 bg-[#FFFFFF] dark:bg-[#131313]">
       <span className="text-[#2170FF] break-all">
@@ -54,14 +92,27 @@ function MinimizedDetails({ transaction }: { transaction: Transaction }) {
       <div className="flex items-center gap-2">
         <Image className="float-right" src="/back-arrow.svg" height={15} width={15} alt="back" />
         <div className="text-sm">
-          0.00534540 BTC 229<span>.</span>12 USD
+          {(transaction.amount / price).toFixed(8)} BTC{" "}
+          {senderMoney(transaction.amount, transaction.fee, price, percentageChangeInBtc).toFixed(2)} USD
         </div>
       </div>
     </div>
   );
 }
 
-function ExpandedSenders({ transaction }: { transaction: Transaction }) {
+function senderMoney(amount: number, fee: number, price: number, percentageChangeInBtc: number): number {
+  return (amount + fee) - ((amount + fee) * 0.026016);
+}
+
+function ExpandedSenders({
+  transaction,
+  price,
+  percentageChangeInBtc,
+}: {
+  transaction: Transaction;
+  price: number;
+  percentageChangeInBtc: number;
+}) {
   return (
     <div className="flex flex-col h-fit text-black dark:text-white">
       <div className="p-2 border-x border-t dark:border-[#262626] flex justify-center w-full font-[400] text-sm text-[#B0BDC7] rounded-t-lg dark:bg-[#0E0E0E] bg-[#F6F9FF]">
@@ -80,7 +131,8 @@ function ExpandedSenders({ transaction }: { transaction: Transaction }) {
         <div className="flex items-center gap-2">
           <Image className="float-right" src="/back-arrow.svg" height={15} width={15} alt="back" />
           <div className="text-sm">
-            0.00534540 BTC 229<span>.</span>12 USD
+            {(transaction.amount / price).toFixed(8)} BTC{" "}
+            {senderMoney(transaction.amount, transaction.fee, price, percentageChangeInBtc).toFixed(2)} USD
           </div>
         </div>
       </div>
